@@ -1677,6 +1677,11 @@ class Config
                  */
                 'transform' => [['transform' => ['', 'gpu', 'none']]],
                 /**
+                 * Transform Style
+                 * @see https://tailwindcss.com/docs/transform-style
+                 */
+                'transform-style' => [[ 'transform' => ['3d', 'flat']]],
+                /**
                  * Scale
                  *
                  * @see https://tailwindcss.com/docs/scale

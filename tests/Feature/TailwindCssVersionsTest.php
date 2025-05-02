@@ -43,3 +43,10 @@ it('supports Tailwind CSS v3.4 features', function (string|array $input, string 
     ['float-start float-end clear-start clear-end', 'float-end clear-end'],
     ['*:p-10 *:p-20 hover:*:p-10 hover:*:p-20', '*:p-20 hover:*:p-20'],
 ]);
+
+it('supports Tailwind CSS v4.0 features', function (string|array $input, string $output) {
+    expect(TailwindMerge::instance()->merge($input))
+        ->toBe($output);
+})->with([
+    ['transform-3d transform-flat', 'transform-flat'],
+]);
