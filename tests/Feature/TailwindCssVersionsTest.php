@@ -49,4 +49,5 @@ it('supports Tailwind CSS v4.0 features', function (string|array $input, string 
         ->toBe($output);
 })->with([
     ['transform-3d transform-flat', 'transform-flat'],
+    ['rotate-12 rotate-x-2 rotate-none rotate-y-3', 'rotate-x-2 rotate-none rotate-y-3'],
 ]);

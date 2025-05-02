@@ -1704,7 +1704,10 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/rotate
                  */
-                'rotate' => [['rotate' => [IntegerValidator::validate(...), ArbitraryValueValidator::validate(...)]]],
+                'rotate' => [['rotate' => self::getRotate()]],
+                'rotate-x' => [['rotate-x' => self::getRotate()]],
+                'rotate-y' => [['rotate-y' => self::getRotate()]],
+                'rotate-z' => [['rotate-z' => self::getRotate()]],
                 /**
                  * Translate X
                  *
@@ -2317,6 +2320,10 @@ class Config
             'evenly',
             'stretch',
         ];
+    }
+
+    private static function getRotate(){
+        return ['none', IntegerValidator::validate(...), ArbitraryValueValidator::validate(...)];
     }
 
     /**

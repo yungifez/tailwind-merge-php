@@ -189,7 +189,7 @@ test('class map has correct class groups at first part', function () {
             'ring-w',
             'ring-w-inset',
         ],
-        'rotate' => ['rotate'],
+        'rotate' => ['rotate', 'rotate-x', 'rotate-y', 'rotate-z'],
         'rounded' => [
             'rounded',
             'rounded-b',
