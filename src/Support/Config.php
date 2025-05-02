@@ -1670,7 +1670,16 @@ class Config
                  */
                 'animate' => [['animate' => ['none', 'spin', 'ping', 'pulse', 'bounce', ArbitraryValueValidator::validate(...)]]],
                 // Transforms
+                /**
+                 * Perspective
+                 * @see https://tailwindcss.com/docs/perspective
+                */
                 'perspective' => [['perspective' => ['dramatic','near', 'normal', 'midrange', 'distant', 'none', ArbitraryValueValidator::validate(...)]]],
+                 /**
+                 * Perspective Origin
+                 * @see https://tailwindcss.com/docs/perspective-origin
+                 */
+                'perspective-origin' => [['perspective-origin' => ['center', 'top','top-right','right','bottom-right','bottom','bottom-left','left','top-left', ArbitraryValueValidator::validate(...)]]],
                 /**
                  * Transform
                  *
