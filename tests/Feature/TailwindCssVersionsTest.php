@@ -52,4 +52,5 @@ it('supports Tailwind CSS v4.0 features', function (string|array $input, string 
     ['rotate-12 rotate-x-2 rotate-none rotate-y-3', 'rotate-x-2 rotate-none rotate-y-3'],
     ['perspective-dramatic perspective-none perspective-midrange', 'perspective-midrange'],
     ['perspective-origin-center perspective-origin-top-left', 'perspective-origin-top-left'],
+    ['bg-linear-to-r bg-linear-45', 'bg-linear-45'],
 ]);

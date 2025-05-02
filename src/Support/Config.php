@@ -1086,7 +1086,12 @@ class Config
                     [
                         'bg' => [
                             'none',
-                            ['gradient-to' => ['t', 'tr', 'r', 'br', 'b', 'bl', 'l', 'tl']],
+                            [
+                                'linear' => [
+                                    ['to' => ['t', 'tr', 'r', 'br', 'b', 'bl', 'l', 'tl']],
+                                    IntegerValidator::validate(...),
+                                ],
+                            ],
                             ArbitraryImageValidator::validate(...),
                         ],
                     ],
