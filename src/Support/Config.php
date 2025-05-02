@@ -931,12 +931,6 @@ class Config
                  */
                 'placeholder-color' => [['placeholder' => [$colors]]],
                 /**
-                 * Placeholder Opacity
-                 *
-                 * @see https://tailwindcss.com/docs/placeholder-opacity
-                 */
-                'placeholder-opacity' => [['placeholder-opacity' => [$opacity]]],
-                /**
                  * Text Alignment
                  *
                  * @see https://tailwindcss.com/docs/text-align
@@ -948,12 +942,6 @@ class Config
                  * @see https://tailwindcss.com/docs/text-color
                  */
                 'text-color' => [['text' => [$colors]]],
-                /**
-                 * Text Opacity
-                 *
-                 * @see https://tailwindcss.com/docs/text-opacity
-                 */
-                'text-opacity' => [['text-opacity' => [$opacity]]],
                 /**
                  * Text Decoration
                  *
@@ -1067,13 +1055,6 @@ class Config
                  * @see https://tailwindcss.com/docs/background-clip
                  */
                 'bg-clip' => [['bg-clip' => ['border', 'padding', 'content', 'text']]],
-                /**
-                 * Background Opacity
-                 *
-                 * @deprecated since Tailwind CSS v3.0.0
-                 * @see https://tailwindcss.com/docs/background-opacity
-                 */
-                'bg-opacity' => [['bg-opacity' => [$opacity]]],
                 /**
                  * Background Origin
                  *
@@ -1308,12 +1289,6 @@ class Config
                  */
                 'border-w-l' => [['border-l' => [$borderWidth]]],
                 /**
-                 * Border Opacity
-                 *
-                 * @see https://tailwindcss.com/docs/border-opacity
-                 */
-                'border-opacity' => [['border-opacity' => [$opacity]]],
-                /**
                  * Border Style
                  *
                  * @see https://tailwindcss.com/docs/border-style
@@ -1343,12 +1318,6 @@ class Config
                  * @see https://tailwindcss.com/docs/divide-width
                  */
                 'divide-y-reverse' => ['divide-y-reverse'],
-                /**
-                 * Divide Opacity
-                 *
-                 * @see https://tailwindcss.com/docs/divide-opacity
-                 */
-                'divide-opacity' => [['divide-opacity' => [$opacity]]],
                 /**
                  * Divide Style
                  *
