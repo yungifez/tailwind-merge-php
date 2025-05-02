@@ -1090,7 +1090,10 @@ class Config
                                 'linear' => [
                                     ['to' => ['t', 'tr', 'r', 'br', 'b', 'bl', 'l', 'tl']],
                                     IntegerValidator::validate(...),
+                                    ArbitraryValueValidator::validate(...),
                                 ],
+                                'radial' => ['', ArbitraryValueValidator::validate(...)],
+                                'conic' => [IntegerValidator::validate(...), ArbitraryValueValidator::validate(...)]
                             ],
                             ArbitraryImageValidator::validate(...),
                         ],
