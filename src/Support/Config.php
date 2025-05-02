@@ -122,7 +122,7 @@ class Config
                 'borderColor' => [$colors],
                 'borderRadius' => ['none', '', 'full', TshirtSizeValidator::validate(...), ArbitraryValueValidator::validate(...)],
                 'borderSpacing' => self::getSpacingWithArbitrary($spacing),
-                'borderWidth' => self::getLengthWithEmptyAndArbitrary(),
+                'borderWidth' => self::getNumberWithEmptyAndArbitrary(),
                 'contrast' => self::getNumber(),
                 'grayscale' => self::getZeroAndEmpty(),
                 'hueRotate' => self::getNumberAndArbitrary(),
@@ -1406,55 +1406,73 @@ class Config
                  * @see https://tailwindcss.com/docs/outline-color
                  */
                 'outline-color' => [['outline' => [$colors]]],
+                // Effects
+                /**
+                 * Box Shadow
+                 * @see https://tailwindcss.com/docs/box-shadow
+                 */
+                 'shadow' => [[ 'shadow' => ['none', TshirtSizeValidator::validate(...), ArbitraryShadowValidator::validate(...)] ]],
+                /**
+                 * Box Shadow Color
+                 * @see https://tailwindcss.com/docs/box-shadow#setting-the-shadow-color
+                 */
+                'shadow-color' => [[ 'shadow' => [AnyValueValidator::validate(...)] ]],
+                /**
+                 * Inset Box Shadow
+                 * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-shadow
+                 */
+                'inset-shadow' => [[ 'inset-shadow' => ['none', TshirtSizeValidator::validate(...), ArbitraryShadowValidator::validate(...)] ]],
+                /**
+                 * Inset Box Shadow Color
+                 * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-shadow-color
+                 */
+                'inset-shadow-color' => [[ 'inset-shadow' => [AnyValueValidator::validate(...)] ]],
                 /**
                  * Ring Width
                  *
-                 * @see https://tailwindcss.com/docs/ring-width
-                 */
-                'ring-w' => [['ring' => self::getLengthWithEmptyAndArbitrary()]],
+                 * @see https://tailwindcss.com/docs/box-shadow#adding-a-ring
+                */
+                'ring-w' => [['ring' => self::getNumberWithEmptyAndArbitrary()]],
                 /**
                  * Ring Width Inset
                  *
-                 * @see https://tailwindcss.com/docs/ring-width
-                 */
+                 * @see https://v3.tailwindcss.com/docs/ring-width#inset-rings
+                 * @deprecated since Tailwind CSS v4.0.0
+                 * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+                */
                 'ring-w-inset' => ['ring-inset'],
                 /**
                  * Ring Color
                  *
-                 * @see https://tailwindcss.com/docs/ring-color
-                 */
+                 * @see https://tailwindcss.com/docs/box-shadow#setting-the-ring-color
+                */
                 'ring-color' => [['ring' => [$colors]]],
-                /**
-                 * Ring Opacity
-                 *
-                 * @see https://tailwindcss.com/docs/ring-opacity
-                 */
-                'ring-opacity' => [['ring-opacity' => [$opacity]]],
                 /**
                  * Ring Offset Width
                  *
-                 * @see https://tailwindcss.com/docs/ring-offset-width
-                 */
+                 * @see https://v3.tailwindcss.com/docs/ring-offset-width
+                 * @deprecated since Tailwind CSS v4.0.0
+                 * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+                */
                 'ring-offset-w' => [['ring-offset' => [LengthValidator::validate(...), ArbitraryLengthValidator::validate(...)]]],
                 /**
                  * Ring Offset Color
                  *
-                 * @see https://tailwindcss.com/docs/ring-offset-color
-                 */
+                 * @see https://v3.tailwindcss.com/docs/ring-offset-color
+                 * @deprecated since Tailwind CSS v4.0.0
+                 * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+                */
                 'ring-offset-color' => [['ring-offset' => [$colors]]],
-                // Effects
                 /**
-                 * Box Shadow
-                 *
-                 * @see https://tailwindcss.com/docs/box-shadow
-                 */
-                'shadow' => [['shadow' => ['', 'inner', 'none', TshirtSizeValidator::validate(...), ArbitraryShadowValidator::validate(...)]]],
+                 * Inset Ring Width
+                 * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-ring
+                */
+                'inset-ring-w' => [['inset-ring' => self::getNumberWithEmptyAndArbitrary()]],
                 /**
-                 * Box Shadow Color
-                 *
-                 * @see https://tailwindcss.com/docs/box-shadow-color
-                 */
-                'shadow-color' => [['shadow' => [AnyValueValidator::validate(...)]]],
+                * Inset Ring Color
+                * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-ring-color
+               */
+               'inset-ring-color' => [['inset-ring' => [$colors]]],
                 /**
                  * Opacity
                  *
@@ -2199,11 +2217,11 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getLengthWithEmptyAndArbitrary(): array
+    private static function getNumberWithEmptyAndArbitrary(): array
     {
         return [
             '',
-            LengthValidator::validate(...),
+            NumberValidator::validate(...),
             ArbitraryLengthValidator::validate(...),
         ];
     }
