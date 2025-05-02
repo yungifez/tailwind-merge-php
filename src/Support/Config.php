@@ -117,10 +117,23 @@ class Config
             'theme' => [
                 'colors' => [AnyValueValidator::validate(...)],
                 'spacing' => [LengthValidator::validate(...), ArbitraryLengthValidator::validate(...)],
-                'blur' => ['none', '', TshirtSizeValidator::validate(...), ArbitraryValueValidator::validate(...)],
+                'blur' => [
+                    'none',
+                    // Deprecated since Tailwind CSS v4.0.0
+                    '',
+                    TshirtSizeValidator::validate(...),
+                    ArbitraryValueValidator::validate(...)
+                ],
                 'brightness' => self::getNumber(),
                 'borderColor' => [$colors],
-                'borderRadius' => ['none', '', 'full', TshirtSizeValidator::validate(...), ArbitraryValueValidator::validate(...)],
+                'borderRadius' => [
+                    'none',
+                    // Deprecated since Tailwind CSS v4.0.0
+                    '',
+                    'full',
+                    TshirtSizeValidator::validate(...),
+                    ArbitraryValueValidator::validate(...)
+                ],
                 'borderSpacing' => self::getSpacingWithArbitrary($spacing),
                 'borderWidth' => self::getNumberWithEmptyAndArbitrary(),
                 'contrast' => self::getNumber(),
@@ -1377,7 +1390,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/outline-style
                  */
-                'outline-style' => [['outline' => ['', ...self::getLineStyles()]]],
+                'outline-style' => [['outline' => ['', 'hidden', ...self::getLineStyles()]]],
                 /**
                  * Outline Offset
                  *
@@ -1401,7 +1414,16 @@ class Config
                  * Box Shadow
                  * @see https://tailwindcss.com/docs/box-shadow
                  */
-                 'shadow' => [[ 'shadow' => ['none', TshirtSizeValidator::validate(...), ArbitraryShadowValidator::validate(...)] ]],
+                'shadow' => [
+                    [
+                        'shadow' => [
+                            // Deprecated since Tailwind CSS v4.0.0
+                            'none',
+                            TshirtSizeValidator::validate(...),
+                            ArbitraryShadowValidator::validate(...)
+                        ]
+                    ]
+                ],
                 /**
                  * Box Shadow Color
                  * @see https://tailwindcss.com/docs/box-shadow#setting-the-shadow-color
@@ -1512,7 +1534,17 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/drop-shadow
                  */
-                'drop-shadow' => [['drop-shadow' => ['', 'none', TshirtSizeValidator::validate(...), ArbitraryValueValidator::validate(...)]]],
+                'drop-shadow' => [
+                    [
+                        'drop-shadow' => [
+                            // Deprecated since Tailwind CSS v4.0.0
+                            '',
+                            'none',
+                            TshirtSizeValidator::validate(...),
+                            ArbitraryValueValidator::validate(...)
+                        ]
+                    ]
+                ],
                 /**
                  * Grayscale
                  *
