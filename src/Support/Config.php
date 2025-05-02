@@ -1627,7 +1627,7 @@ class Config
                 'caption' => [['caption' => ['top', 'bottom']]],
                 // Transitions and Animation
                 /**
-                 * Tranisition Property
+                 * Transition Property
                  *
                  * @see https://tailwindcss.com/docs/transition-property
                  */
@@ -1670,6 +1670,7 @@ class Config
                  */
                 'animate' => [['animate' => ['none', 'spin', 'ping', 'pulse', 'bounce', ArbitraryValueValidator::validate(...)]]],
                 // Transforms
+                'perspective' => [['perspective' => ['dramatic','near', 'normal', 'midrange', 'distant', 'none', ArbitraryValueValidator::validate(...)]]],
                 /**
                  * Transform
                  *
