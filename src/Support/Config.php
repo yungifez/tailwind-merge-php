@@ -1803,6 +1803,20 @@ class Config
                  */
                 'appearance' => [['appearance' => ['none', 'auto']]],
                 /**
+                 * Caret Color
+                 * @see https://tailwindcss.com/docs/just-in-time-mode#caret-color-utilities
+                 */
+                'caret-color' => [
+                    ['caret' => [$colors]],
+                ],
+                /**
+                 * Color Scheme
+                 * @see https://tailwindcss.com/docs/color-scheme
+                 */
+                'color-scheme' => [
+                    ['scheme' => ['normal', 'dark', 'light', 'light-dark', 'only-dark', 'only-light']],
+                ],
+                /**
                  * Cursor
                  *
                  * @see https://tailwindcss.com/docs/cursor
@@ -1850,12 +1864,6 @@ class Config
                         ],
                     ],
                 ],
-                /**
-                 * Caret Color
-                 *
-                 * @see https://tailwindcss.com/docs/just-in-time-mode#caret-color-utilities
-                 */
-                'caret-color' => [['caret' => [$colors]]],
                 /**
                  * Field Sizing
                  * @see https://tailwindcss.com/docs/field-sizing
