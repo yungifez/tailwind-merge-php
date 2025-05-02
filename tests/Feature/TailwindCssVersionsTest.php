@@ -55,4 +55,5 @@ it('supports Tailwind CSS v4.0 features', function (string|array $input, string 
     ['bg-linear-to-r bg-linear-45', 'bg-linear-45'],
     ['bg-linear-to-r bg-radial-[something] bg-conic-10', 'bg-conic-10'],
     ['ring-4 ring-orange inset-ring inset-ring-3 inset-ring-blue', 'ring-4 ring-orange inset-ring-3 inset-ring-blue'],
+    ['field-sizing-content field-sizing-fixed', 'field-sizing-fixed'],
 ]);

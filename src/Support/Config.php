@@ -1857,6 +1857,11 @@ class Config
                  */
                 'caret-color' => [['caret' => [$colors]]],
                 /**
+                 * Field Sizing
+                 * @see https://tailwindcss.com/docs/field-sizing
+                 */
+                'field-sizing' => [[ 'field-sizing' => ['fixed', 'content'] ]],
+                /**
                  * Pointer Events
                  *
                  * @see https://tailwindcss.com/docs/pointer-events
