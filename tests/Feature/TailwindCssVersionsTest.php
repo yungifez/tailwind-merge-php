@@ -57,4 +57,5 @@ it('supports Tailwind CSS v4.0 features', function (string|array $input, string 
     ['ring-4 ring-orange inset-ring inset-ring-3 inset-ring-blue', 'ring-4 ring-orange inset-ring-3 inset-ring-blue'],
     ['field-sizing-content field-sizing-fixed', 'field-sizing-fixed'],
     ['scheme-normal scheme-dark', 'scheme-dark'],
+    ['font-stretch-expanded font-stretch-[66.66%] font-stretch-50%', 'font-stretch-50%'],
 ]);

@@ -802,6 +802,27 @@ class Config
                     ],
                 ],
                 /**
+                 * Font Stretch
+                 * @see https://tailwindcss.com/docs/font-stretch
+                 */
+                'font-stretch' => [
+                    [
+                        'font-stretch' => [
+                            'ultra-condensed',
+                            'extra-condensed',
+                            'condensed',
+                            'semi-condensed',
+                            'normal',
+                            'semi-expanded',
+                            'expanded',
+                            'extra-expanded',
+                            'ultra-expanded',
+                            PercentValidator::validate(...),
+                            ArbitraryValueValidator::validate(...),
+                        ],
+                    ],
+                ],
+                /**
                  * Font Family
                  *
                  * @see https://tailwindcss.com/docs/font-family
