@@ -97,24 +97,24 @@ class Config
      */
     public static function getDefaultConfig(): array
     {
-        $color = self::fromTheme('color');
-        $font = self::fromTheme('font');
-        $text = self::fromTheme('text');
-        $fontWeight = self::fromTheme('font-weight');
-        $tracking = self::fromTheme('tracking');
-        $leading = self::fromTheme('leading');
-        $breakpoint = self::fromTheme('breakpoint');
-        $container = self::fromTheme('container');
-        $spacing = self::fromTheme('spacing');
-        $radius = self::fromTheme('radius');
-        $shadow = self::fromTheme('shadow');
-        $insetShadow = self::fromTheme('inset-shadow');
-        $dropShadow = self::fromTheme('drop-shadow');
-        $blur = self::fromTheme('blur');
-        $perspective = self::fromTheme('perspective');
-        $aspect = self::fromTheme('aspect');
-        $ease = self::fromTheme('ease');
-        $animate = self::fromTheme('animate');
+        $themeColor = self::fromTheme('color');
+        $themeFont = self::fromTheme('font');
+        $themeText = self::fromTheme('text');
+        $themeFontWeight = self::fromTheme('font-weight');
+        $themeTracking = self::fromTheme('tracking');
+        $themeLeading = self::fromTheme('leading');
+        $themeBreakPoint = self::fromTheme('breakpoint');
+        $themeContainer = self::fromTheme('container');
+        $themeSpacing = self::fromTheme('spacing');
+        $themeRadius = self::fromTheme('radius');
+        $themeShadow = self::fromTheme('shadow');
+        $themeInsetShadow = self::fromTheme('inset-shadow');
+        $themeDropShadow = self::fromTheme('drop-shadow');
+        $themeBlur = self::fromTheme('blur');
+        $themePerspective = self::fromTheme('perspective');
+        $themeAspect = self::fromTheme('aspect');
+        $themeEase = self::fromTheme('ease');
+        $themeAnimate = self::fromTheme('animate');
 
         return [
             'cacheSize' => 500,
@@ -188,7 +188,7 @@ class Config
                             FractionValidator::validate(...),
                             ArbitraryValueValidator::validate(...),
                             ArbitraryVariableValidator::validate(...),
-                            $aspect,
+                            $themeAspect,
                         ],
                     ],
                 ],
@@ -210,7 +210,7 @@ class Config
                             NumberValidator::validate(...),
                             ArbitraryValueValidator::validate(...),
                             ArbitraryVariableValidator::validate(...),
-                            $container,
+                            $themeContainer,
                         ],
                     ],
                 ],
@@ -219,13 +219,13 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/break-after
                  */
-                'break-after' => [['break-after' => self::getBreakScale()]],
+                'break-after' => [['break-after' => self::scaleBreak()]],
                 /**
                  * Break Before
                  *
                  * @see https://tailwindcss.com/docs/break-before
                  */
-                'break-before' => [['break-before' => self::getBreakScale()]],
+                'break-before' => [['break-before' => self::scaleBreak()]],
                 /**
                  * Break Inside
                  *
@@ -309,7 +309,7 @@ class Config
                 'object-position' => [
                     [
                         'object' => [
-                            ...self::getPositionScale(),
+                            ...self::scalePosition(),
                             ArbitraryValueValidator::validate(...),
                             ArbitraryVariableValidator::validate(...),
                         ],
@@ -320,37 +320,37 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/overflow
                  */
-                'overflow' => [['overflow' => self::getOverflowScale()]],
+                'overflow' => [['overflow' => self::scaleOverflow()]],
                 /**
                  * Overflow X
                  *
                  * @see https://tailwindcss.com/docs/overflow
                  */
-                'overflow-x' => [['overflow-x' => self::getOverflowScale()]],
+                'overflow-x' => [['overflow-x' => self::scaleOverflow()]],
                 /**
                  * Overflow Y
                  *
                  * @see https://tailwindcss.com/docs/overflow
                  */
-                'overflow-y' => [['overflow-y' => self::getOverflowScale()]],
+                'overflow-y' => [['overflow-y' => self::scaleOverflow()]],
                 /**
                  * Overscroll Behavior
                  *
                  * @see https://tailwindcss.com/docs/overscroll-behavior
                  */
-                'overscroll' => [['overscroll' => self::getOverscrollScale()]],
+                'overscroll' => [['overscroll' => self::scaleOverscroll()]],
                 /**
                  * Overscroll Behavior X
                  *
                  * @see https://tailwindcss.com/docs/overscroll-behavior
                  */
-                'overscroll-x' => [['overscroll-x' => self::getOverscrollScale()]],
+                'overscroll-x' => [['overscroll-x' => self::scaleOverscroll()]],
                 /**
                  * Overscroll Behavior Y
                  *
                  * @see https://tailwindcss.com/docs/overscroll-behavior
                  */
-                'overscroll-y' => [['overscroll-y' => self::getOverscrollScale()]],
+                'overscroll-y' => [['overscroll-y' => self::scaleOverscroll()]],
                 /**
                  * Position
                  *
@@ -362,55 +362,55 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/top-right-bottom-left
                  */
-                'inset' => [['inset' => self::getInsetScale($spacing)]],
+                'inset' => [['inset' => self::scaleInset($themeSpacing)]],
                 /**
                  * Right / Left
                  *
                  * @see https://tailwindcss.com/docs/top-right-bottom-left
                  */
-                'inset-x' => [['inset-x' => self::getInsetScale($spacing)]],
+                'inset-x' => [['inset-x' => self::scaleInset($themeSpacing)]],
                 /**
                  * Top / Bottom
                  *
                  * @see https://tailwindcss.com/docs/top-right-bottom-left
                  */
-                'inset-y' => [['inset-y' => self::getInsetScale($spacing)]],
+                'inset-y' => [['inset-y' => self::scaleInset($themeSpacing)]],
                 /**
                  * Start
                  *
                  * @see https://tailwindcss.com/docs/top-right-bottom-left
                  */
-                'start' => [['start' => self::getInsetScale($spacing)]],
+                'start' => [['start' => self::scaleInset($themeSpacing)]],
                 /**
                  * End
                  *
                  * @see https://tailwindcss.com/docs/top-right-bottom-left
                  */
-                'end' => [['end' => self::getInsetScale($spacing)]],
+                'end' => [['end' => self::scaleInset($themeSpacing)]],
                 /**
                  * Top
                  *
                  * @see https://tailwindcss.com/docs/top-right-bottom-left
                  */
-                'top' => [['top' => self::getInsetScale($spacing)]],
+                'top' => [['top' => self::scaleInset($themeSpacing)]],
                 /**
                  * Right
                  *
                  * @see https://tailwindcss.com/docs/top-right-bottom-left
                  */
-                'right' => [['right' => self::getInsetScale($spacing)]],
+                'right' => [['right' => self::scaleInset($themeSpacing)]],
                 /**
                  * Bottom
                  *
                  * @see https://tailwindcss.com/docs/top-right-bottom-left
                  */
-                'bottom' => [['bottom' => self::getInsetScale($spacing)]],
+                'bottom' => [['bottom' => self::scaleInset($themeSpacing)]],
                 /**
                  * Left
                  *
                  * @see https://tailwindcss.com/docs/top-right-bottom-left
                  */
-                'left' => [['left' => self::getInsetScale($spacing)]],
+                'left' => [['left' => self::scaleInset($themeSpacing)]],
                 /**
                  * Visibility
                  *
@@ -439,8 +439,8 @@ class Config
                             'auto',
                             ArbitraryVariableValidator::validate(...),
                             ArbitraryValueValidator::validate(...),
-                            $container,
-                            $spacing,
+                            $themeContainer,
+                            $themeSpacing,
                         ],
                     ],
                 ],
@@ -496,49 +496,49 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/grid-template-columns
                  */
-                'grid-cols' => [['grid-cols' => self::getGridTemplateColsRowsScale()]],
+                'grid-cols' => [['grid-cols' => self::scaleGridTemplateColsRows()]],
                 /**
                  * Grid Column Start / End
                  *
                  * @see https://tailwindcss.com/docs/grid-column
                  */
-                'col-start-end' => [['col' => self::getGridColRowStartAndEndScale()]],
+                'col-start-end' => [['col' => self::scaleGridColRowStartAndEnd()]],
                 /**
                  * Grid Column Start
                  *
                  * @see https://tailwindcss.com/docs/grid-column
                  */
-                'col-start' => [['col-start' => self::getGridColRowStartOrEndScale()]],
+                'col-start' => [['col-start' => self::scaleGridColRowStartOrEnd()]],
                 /**
                  * Grid Column End
                  *
                  * @see https://tailwindcss.com/docs/grid-column
                  */
-                'col-end' => [['col-end' => self::getGridColRowStartOrEndScale()]],
+                'col-end' => [['col-end' => self::scaleGridColRowStartOrEnd()]],
                 /**
                  * Grid Template Rows
                  *
                  * @see https://tailwindcss.com/docs/grid-template-rows
                  */
-                'grid-rows' => [['grid-rows' => self::getGridTemplateColsRowsScale()]],
+                'grid-rows' => [['grid-rows' => self::scaleGridTemplateColsRows()]],
                 /**
                  * Grid Row Start / End
                  *
                  * @see https://tailwindcss.com/docs/grid-row
                  */
-                'row-start-end' => [['row' => self::getGridColRowStartAndEndScale() ]],
+                'row-start-end' => [['row' => self::scaleGridColRowStartAndEnd() ]],
                 /**
                  * Grid Row Start
                  *
                  * @see https://tailwindcss.com/docs/grid-row
                  */
-                'row-start' => [['row-start' => self::getGridColRowStartOrEndScale()]],
+                'row-start' => [['row-start' => self::scaleGridColRowStartOrEnd()]],
                 /**
                  * Grid Row End
                  *
                  * @see https://tailwindcss.com/docs/grid-row
                  */
-                'row-end' => [['row-end' => self::getGridColRowStartOrEndScale()]],
+                'row-end' => [['row-end' => self::scaleGridColRowStartOrEnd()]],
                 /**
                  * Grid Auto Flow
                  *
@@ -550,200 +550,200 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/grid-auto-columns
                  */
-                'auto-cols' => [['auto-cols' => self::getGridAutoColsRowsScale()]],
+                'auto-cols' => [['auto-cols' => self::scaleGridAutoColsRows()]],
                 /**
                  * Grid Auto Rows
                  *
                  * @see https://tailwindcss.com/docs/grid-auto-rows
                  */
-                'auto-rows' => [['auto-rows' => self::getGridAutoColsRowsScale()]],
+                'auto-rows' => [['auto-rows' => self::scaleGridAutoColsRows()]],
                 /**
                  * Gap
                  *
                  * @see https://tailwindcss.com/docs/gap
                  */
-                'gap' => [['gap' => self::getGapScale($spacing)]],
+                'gap' => [['gap' => self::scaleGap($themeSpacing)]],
                 /**
                  * Gap X
                  *
                  * @see https://tailwindcss.com/docs/gap
                  */
-                'gap-x' => [['gap-x' => self::getGapScale($spacing)]],
+                'gap-x' => [['gap-x' => self::scaleGap($themeSpacing)]],
                 /**
                  * Gap Y
                  *
                  * @see https://tailwindcss.com/docs/gap
                  */
-                'gap-y' => [['gap-y' => self::getGapScale($spacing)]],
+                'gap-y' => [['gap-y' => self::scaleGap($themeSpacing)]],
                 /**
                  * Justify Content
                  *
                  * @see https://tailwindcss.com/docs/justify-content
                  */
-                'justify-content' => [['justify' => [...self::getAlignPrimaryAxisScale(), 'normal']]],
+                'justify-content' => [['justify' => [...self::scaleAlignPrimaryAxis(), 'normal']]],
                 /**
                  * Justify Items
                  *
                  * @see https://tailwindcss.com/docs/justify-items
                  */
-                'justify-items' => [['justify-items' => [...self::getAlignSecondaryAxisScale(), 'normal']]],
+                'justify-items' => [['justify-items' => [...self::scaleAlignSecondaryAxis(), 'normal']]],
                 /**
                  * Justify Self
                  *
                  * @see https://tailwindcss.com/docs/justify-self
                  */
-                'justify-self' => [['justify-self' => ['auto', ...self::getAlignSecondaryAxisScale()]]],
+                'justify-self' => [['justify-self' => ['auto', ...self::scaleAlignSecondaryAxis()]]],
                 /**
                  * Align Content
                  *
                  * @see https://tailwindcss.com/docs/align-content
                  */
-                'align-content' => [['content' => ['normal', ...self::getAlignPrimaryAxisScale()]]],
+                'align-content' => [['content' => ['normal', ...self::scaleAlignPrimaryAxis()]]],
                 /**
                  * Align Items
                  *
                  * @see https://tailwindcss.com/docs/align-items
                  */
-                'align-items' => [['items' => [...self::getAlignSecondaryAxisScale(), 'baseline']]],
+                'align-items' => [['items' => [...self::scaleAlignSecondaryAxis(), 'baseline']]],
                 /**
                  * Align Self
                  *
                  * @see https://tailwindcss.com/docs/align-self
                  */
-                'align-self' => [['self' => ['auto', ...self::getAlignSecondaryAxisScale(), 'baseline']]],
+                'align-self' => [['self' => ['auto', ...self::scaleAlignSecondaryAxis(), 'baseline']]],
                 /**
                  * Place Content
                  *
                  * @see https://tailwindcss.com/docs/place-content
                  */
-                'place-content' => [['place-content' => self::getAlignPrimaryAxisScale()]],
+                'place-content' => [['place-content' => self::scaleAlignPrimaryAxis()]],
                 /**
                  * Place Items
                  *
                  * @see https://tailwindcss.com/docs/place-items
                  */
-                'place-items' => [['place-items' => [...self::getAlignSecondaryAxisScale(), 'baseline']]],
+                'place-items' => [['place-items' => [...self::scaleAlignSecondaryAxis(), 'baseline']]],
                 /**
                  * Place Self
                  *
                  * @see https://tailwindcss.com/docs/place-self
                  */
-                'place-self' => [['place-self' => ['auto', ...self::getAlignSecondaryAxisScale()]]],
+                'place-self' => [['place-self' => ['auto', ...self::scaleAlignSecondaryAxis()]]],
                 // Spacing
                 /**
                  * Padding
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'p' => [['p' => self::getUnambiguousSpacingScale($spacing)]],
+                'p' => [['p' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Padding X
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'px' => [['px' => self::getUnambiguousSpacingScale($spacing)]],
+                'px' => [['px' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Padding Y
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'py' => [['py' => self::getUnambiguousSpacingScale($spacing)]],
+                'py' => [['py' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Padding Start
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'ps' => [['ps' => self::getUnambiguousSpacingScale($spacing)]],
+                'ps' => [['ps' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Padding End
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'pe' => [['pe' => self::getUnambiguousSpacingScale($spacing)]],
+                'pe' => [['pe' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Padding Top
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'pt' => [['pt' => self::getUnambiguousSpacingScale($spacing)]],
+                'pt' => [['pt' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Padding Right
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'pr' => [['pr' => self::getUnambiguousSpacingScale($spacing)]],
+                'pr' => [['pr' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Padding Bottom
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'pb' => [['pb' => self::getUnambiguousSpacingScale($spacing)]],
+                'pb' => [['pb' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Padding Left
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'pl' => [['pl' => self::getUnambiguousSpacingScale($spacing)]],
+                'pl' => [['pl' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Margin
                  *
                  * @see https://tailwindcss.com/docs/margin
                  */
-                'm' => [['m' => self::getMarginScale($spacing)]],
+                'm' => [['m' => self::scaleMargin($themeSpacing)]],
                 /**
                  * Margin X
                  *
                  * @see https://tailwindcss.com/docs/margin
                  */
-                'mx' => [['mx' => self::getMarginScale($spacing)]],
+                'mx' => [['mx' => self::scaleMargin($themeSpacing)]],
                 /**
                  * Margin Y
                  *
                  * @see https://tailwindcss.com/docs/margin
                  */
-                'my' => [['my' => self::getMarginScale($spacing)]],
+                'my' => [['my' => self::scaleMargin($themeSpacing)]],
                 /**
                  * Margin Start
                  *
                  * @see https://tailwindcss.com/docs/margin
                  */
-                'ms' => [['ms' => self::getMarginScale($spacing)]],
+                'ms' => [['ms' => self::scaleMargin($themeSpacing)]],
                 /**
                  * Margin End
                  *
                  * @see https://tailwindcss.com/docs/margin
                  */
-                'me' => [['me' => self::getMarginScale($spacing)]],
+                'me' => [['me' => self::scaleMargin($themeSpacing)]],
                 /**
                  * Margin Top
                  *
                  * @see https://tailwindcss.com/docs/margin
                  */
-                'mt' => [['mt' => self::getMarginScale($spacing)]],
+                'mt' => [['mt' => self::scaleMargin($themeSpacing)]],
                 /**
                  * Margin Right
                  *
                  * @see https://tailwindcss.com/docs/margin
                  */
-                'mr' => [['mr' => self::getMarginScale($spacing)]],
+                'mr' => [['mr' => self::scaleMargin($themeSpacing)]],
                 /**
                  * Margin Bottom
                  *
                  * @see https://tailwindcss.com/docs/margin
                  */
-                'mb' => [['mb' => self::getMarginScale($spacing)]],
+                'mb' => [['mb' => self::scaleMargin($themeSpacing)]],
                 /**
                  * Margin Left
                  *
                  * @see https://tailwindcss.com/docs/margin
                  */
-                'ml' => [['ml' => self::getMarginScale($spacing)]],
+                'ml' => [['ml' => self::scaleMargin($themeSpacing)]],
                 /**
                  * Space Between X
                  *
                  * @see https://tailwindcss.com/docs/margin#adding-space-between-children
                 */
-                'space-x' => [['space-x' => self::getUnambiguousSpacingScale($spacing)]],
+                'space-x' => [['space-x' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Space Between X Reverse
                  *
@@ -755,7 +755,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/margin#adding-space-between-children
                  */
-                'space-y' => [['space-y' => self::getUnambiguousSpacingScale($spacing)]],
+                'space-y' => [['space-y' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Space Between Y Reverse
                  *
@@ -771,19 +771,19 @@ class Config
                  * Size
                  * @see https://tailwindcss.com/docs/width#setting-both-width-and-height
                  */
-                'size' => [[ 'size' => self::getSizingScale($spacing) ]],
+                'size' => [[ 'size' => self::scaleSizing($themeSpacing) ]],
                 /**
                  * Width
                  *
                  * @see https://tailwindcss.com/docs/width
                  */
-                'w' => [[ 'w' =>  [$container, 'screen', ...self::getSizingScale($spacing)] ]],
+                'w' => [[ 'w' =>  [$themeContainer, 'screen', ...self::scaleSizing($themeSpacing)] ]],
                 /**
                  * Min-Width
                  *
                  * @see https://tailwindcss.com/docs/min-width
                  */
-                'min-w' => [['min-w' => [$container, 'screen', 'none', ...self::getSizingScale($spacing)] ]],
+                'min-w' => [['min-w' => [$themeContainer, 'screen', 'none', ...self::scaleSizing($themeSpacing)] ]],
                 /**
                  * Max-Width
                  *
@@ -792,12 +792,12 @@ class Config
                 'max-w' => [
                     [
                         'max-w' => [
-                            $container,
+                            $themeContainer,
                             'screen',
                             'none',
                             'prose',
-                            ['screen' => [$breakpoint]],
-                            ...self::getSizingScale($spacing),
+                            ['screen' => [$themeBreakPoint]],
+                            ...self::scaleSizing($themeSpacing),
                         ],
                     ],
                 ],
@@ -806,14 +806,14 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/height
                  */
-                "h" => [[ 'h' => ['screen', ...self::getSizingScale($spacing)] ]],
+                "h" => [[ 'h' => ['screen', ...self::scaleSizing($themeSpacing)] ]],
                 /**
                  * Min-Height
                  *
                  * @see https://tailwindcss.com/docs/min-height
                  */
                 'min-h' => [
-                    ['min-h' => ['screen', 'none', ...self::getSizingScale($spacing)]],
+                    ['min-h' => ['screen', 'none', ...self::scaleSizing($themeSpacing)]],
                 ],
                 /**
                  * Max-Height
@@ -821,7 +821,7 @@ class Config
                  * @see https://tailwindcss.com/docs/max-height
                  */
                 'max-h' => [
-                    ['max-h' => ['screen', ...self::getSizingScale($spacing)]],
+                    ['max-h' => ['screen', ...self::scaleSizing($themeSpacing)]],
                 ],
                 // ------------------
                 // --- Typography ---
@@ -831,7 +831,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/font-size
                  */
-                'font-size' => [['text' => [$text]]],
+                'font-size' => [['text' => [$themeText]]],
                 /**
                  * Font Smoothing
                  *
@@ -851,7 +851,7 @@ class Config
                  */
                 'font-weight' => [
                     [
-                        'font' => [$fontWeight, ArbitraryVariableValidator::validate(...), ArbitraryNumberValidator::validate(...)],
+                        'font' => [$themeFontWeight, ArbitraryVariableValidator::validate(...), ArbitraryNumberValidator::validate(...)],
                     ],
                 ],
                 /**
@@ -880,7 +880,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/font-family
                  */
-                'font-family' => [['font' => [$font]]],
+                'font-family' => [['font' => [$themeFont]]],
                 /**
                  * Font Variant Numeric
                  *
@@ -924,7 +924,7 @@ class Config
                  */
                 'tracking' => [
                     [
-                        'tracking' => [$tracking, ArbitraryVariableValidator::validate(...), ArbitraryValueValidator::validate(...)],
+                        'tracking' => [$themeTracking, ArbitraryVariableValidator::validate(...), ArbitraryValueValidator::validate(...)],
                     ],
                 ],
                 /**
@@ -942,8 +942,8 @@ class Config
                     ['leading' => [
                         ArbitraryVariableValidator::validate(...),
                         ArbitraryValueValidator::validate(...),
-                        $leading,
-                        $spacing
+                        $themeLeading,
+                        $themeSpacing
                     ]],
                 ],
                 /**
@@ -976,13 +976,13 @@ class Config
                  * @deprecated since Tailwind CSS v3.0.0
                  * @see https://tailwindcss.com/docs/placeholder-color
                  */
-                'placeholder-color' => [['placeholder' => [$color]]],
+                'placeholder-color' => [['placeholder' => [$themeColor]]],
                 /**
                  * Text Color
                  *
                  * @see https://tailwindcss.com/docs/text-color
                  */
-                'text-color' => [['text' => [$color]]],
+                'text-color' => [['text' => [$themeColor]]],
                 /**
                  * Text Decoration
                  *
@@ -994,7 +994,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/text-decoration-style
                  */
-                'text-decoration-style' => [['decoration' => [...self::getLineStyleScale(), 'wavy']]],
+                'text-decoration-style' => [['decoration' => [...self::scaleLineStyle(), 'wavy']]],
                 /**
                  * Text Decoration Thickness
                  *
@@ -1012,7 +1012,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/text-decoration-color
                  */
-                'text-decoration-color' => [['decoration' => [$color]]],
+                'text-decoration-color' => [['decoration' => [$themeColor]]],
                 /**
                  * Text Underline Offset
                  *
@@ -1042,7 +1042,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/text-indent
                  */
-                'indent' => [['indent' => ['px', ...self::getUnambiguousSpacingScale($spacing)]]],
+                'indent' => [['indent' => ['px', ...self::scaleUnambiguousSpacing($themeSpacing)]]],
                 /**
                  * Vertical Alignment
                  *
@@ -1116,7 +1116,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/background-position
                  */
-                'bg-position' => [['bg' => [...self::getPositionScale(), ArbitraryVariablePositionValidator::validate(...), ArbitraryPositionValidator::validate(...)]]],
+                'bg-position' => [['bg' => [...self::scalePosition(), ArbitraryVariablePositionValidator::validate(...), ArbitraryPositionValidator::validate(...)]]],
                 /**
                  * Background Repeat
                  *
@@ -1158,43 +1158,43 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/background-color
                  */
-                'bg-color' => [['bg' => [$color]]],
+                'bg-color' => [['bg' => [$themeColor]]],
                 /**
                  * Gradient Color Stops From Position
                  *
                  * @see https://tailwindcss.com/docs/gradient-color-stops
                  */
-                'gradient-from-pos' => [['from' => self::getGradientStopPositionScale()]],
+                'gradient-from-pos' => [['from' => self::scaleGradientStopPosition()]],
                 /**
                  * Gradient Color Stops Via Position
                  *
                  * @see https://tailwindcss.com/docs/gradient-color-stops
                  */
-                'gradient-via-pos' => [['via' => self::getGradientStopPositionScale()]],
+                'gradient-via-pos' => [['via' => self::scaleGradientStopPosition()]],
                 /**
                  * Gradient Color Stops To Position
                  *
                  * @see https://tailwindcss.com/docs/gradient-color-stops
                  */
-                'gradient-to-pos' => [['to' => self::getGradientStopPositionScale()]],
+                'gradient-to-pos' => [['to' => self::scaleGradientStopPosition()]],
                 /**
                  * Gradient Color Stops From
                  *
                  * @see https://tailwindcss.com/docs/gradient-color-stops
                  */
-                'gradient-from' => [['from' => [$color]]],
+                'gradient-from' => [['from' => [$themeColor]]],
                 /**
                  * Gradient Color Stops Via
                  *
                  * @see https://tailwindcss.com/docs/gradient-color-stops
                  */
-                'gradient-via' => [['via' => [$color]]],
+                'gradient-via' => [['via' => [$themeColor]]],
                 /**
                  * Gradient Color Stops To
                  *
                  * @see https://tailwindcss.com/docs/gradient-color-stops
                  */
-                'gradient-to' => [['to' => [$color]]],
+                'gradient-to' => [['to' => [$themeColor]]],
                 // ---------------
                 // --- Borders ---
                 // ---------------
@@ -1203,151 +1203,151 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded' => [['rounded' => [$radius]]],
+                'rounded' => [['rounded' => [$themeRadius]]],
                 /**
                  * Border Radius Start
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-s' => [['rounded-s' => [$radius]]],
+                'rounded-s' => [['rounded-s' => [$themeRadius]]],
                 /**
                  * Border Radius End
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-e' => [['rounded-e' => [$radius]]],
+                'rounded-e' => [['rounded-e' => [$themeRadius]]],
                 /**
                  * Border Radius Top
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-t' => [['rounded-t' => [$radius]]],
+                'rounded-t' => [['rounded-t' => [$themeRadius]]],
                 /**
                  * Border Radius Right
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-r' => [['rounded-r' => [$radius]]],
+                'rounded-r' => [['rounded-r' => [$themeRadius]]],
                 /**
                  * Border Radius Bottom
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-b' => [['rounded-b' => [$radius]]],
+                'rounded-b' => [['rounded-b' => [$themeRadius]]],
                 /**
                  * Border Radius Left
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-l' => [['rounded-l' => [$radius]]],
+                'rounded-l' => [['rounded-l' => [$themeRadius]]],
                 /**
                  * Border Radius Start Start
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-ss' => [['rounded-ss' => [$radius]]],
+                'rounded-ss' => [['rounded-ss' => [$themeRadius]]],
                 /**
                  * Border Radius Start End
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-se' => [['rounded-se' => [$radius]]],
+                'rounded-se' => [['rounded-se' => [$themeRadius]]],
                 /**
                  * Border Radius End End
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-ee' => [['rounded-ee' => [$radius]]],
+                'rounded-ee' => [['rounded-ee' => [$themeRadius]]],
                 /**
                  * Border Radius End Start
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-es' => [['rounded-es' => [$radius]]],
+                'rounded-es' => [['rounded-es' => [$themeRadius]]],
                 /**
                  * Border Radius Top Left
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-tl' => [['rounded-tl' => [$radius]]],
+                'rounded-tl' => [['rounded-tl' => [$themeRadius]]],
                 /**
                  * Border Radius Top Right
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-tr' => [['rounded-tr' => [$radius]]],
+                'rounded-tr' => [['rounded-tr' => [$themeRadius]]],
                 /**
                  * Border Radius Bottom Right
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-br' => [['rounded-br' => [$radius]]],
+                'rounded-br' => [['rounded-br' => [$themeRadius]]],
                 /**
                  * Border Radius Bottom Left
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-bl' => [['rounded-bl' => [$radius]]],
+                'rounded-bl' => [['rounded-bl' => [$themeRadius]]],
                 /**
                  * Border Width
                  *
                  * @see https://tailwindcss.com/docs/border-width
                  */
-                'border-w' => [['border' => self::getBorderWidthScale()]],
+                'border-w' => [['border' => self::scaleBorderWidth()]],
                 /**
                  * Border Width X
                  *
                  * @see https://tailwindcss.com/docs/border-width
                  */
-                'border-w-x' => [['border-x' => self::getBorderWidthScale()]],
+                'border-w-x' => [['border-x' => self::scaleBorderWidth()]],
                 /**
                  * Border Width Y
                  *
                  * @see https://tailwindcss.com/docs/border-width
                  */
-                'border-w-y' => [['border-y' => self::getBorderWidthScale()]],
+                'border-w-y' => [['border-y' => self::scaleBorderWidth()]],
                 /**
                  * Border Width Start
                  *
                  * @see https://tailwindcss.com/docs/border-width
                  */
-                'border-w-s' => [['border-s' => self::getBorderWidthScale()]],
+                'border-w-s' => [['border-s' => self::scaleBorderWidth()]],
                 /**
                  * Border Width End
                  *
                  * @see https://tailwindcss.com/docs/border-width
                  */
-                'border-w-e' => [['border-e' => self::getBorderWidthScale()]],
+                'border-w-e' => [['border-e' => self::scaleBorderWidth()]],
                 /**
                  * Border Width Top
                  *
                  * @see https://tailwindcss.com/docs/border-width
                  */
-                'border-w-t' => [['border-t' => self::getBorderWidthScale()]],
+                'border-w-t' => [['border-t' => self::scaleBorderWidth()]],
                 /**
                  * Border Width Right
                  *
                  * @see https://tailwindcss.com/docs/border-width
                  */
-                'border-w-r' => [['border-r' => self::getBorderWidthScale()]],
+                'border-w-r' => [['border-r' => self::scaleBorderWidth()]],
                 /**
                  * Border Width Bottom
                  *
                  * @see https://tailwindcss.com/docs/border-width
                  */
-                'border-w-b' => [['border-b' => self::getBorderWidthScale()]],
+                'border-w-b' => [['border-b' => self::scaleBorderWidth()]],
                 /**
                  * Border Width Left
                  *
                  * @see https://tailwindcss.com/docs/border-width
                  */
-                'border-w-l' => [['border-l' => self::getBorderWidthScale()]],
+                'border-w-l' => [['border-l' => self::scaleBorderWidth()]],
                 /**
                  * Divide Width X
                  *
                  * @see https://tailwindcss.com/docs/border-width#between-children
                  */
-                'divide-x' => [['divide-x' => self::getBorderWidthScale()]],
+                'divide-x' => [['divide-x' => self::scaleBorderWidth()]],
                 /**
                  * Divide Width X Reverse
                  *
@@ -1359,7 +1359,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/border-width#between-children
                  */
-                'divide-y' => [['divide-y' => self::getBorderWidthScale()]],
+                'divide-y' => [['divide-y' => self::scaleBorderWidth()]],
                 /**
                  * Divide Width Y Reverse
                  *
@@ -1371,13 +1371,13 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/border-style
                  */
-                'border-style' => [['border' => [...self::getLineStyleScale(), 'hidden', 'none']]],
+                'border-style' => [['border' => [...self::scaleLineStyle(), 'hidden', 'none']]],
                 /**
                  * Divide Style
                  *
                 * @see https://tailwindcss.com/docs/border-style#setting-the-divider-style
                 * */
-                'divide-style' => [['divide' => [...self::getLineStyleScale(), 'hidden', 'none']]],
+                'divide-style' => [['divide' => [...self::scaleLineStyle(), 'hidden', 'none']]],
                 /**
                  * Border Color
                  *
@@ -1385,7 +1385,7 @@ class Config
                  */
                 'border-color' => [
                     [
-                        'border' => [$color],
+                        'border' => [$themeColor],
                     ],
                 ],
                 /**
@@ -1393,49 +1393,49 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/border-color
                  */
-                'border-color-x' => [['border-x' => [$color]]],
+                'border-color-x' => [['border-x' => [$themeColor]]],
                 /**
                  * Border Color Y
                  *
                  * @see https://tailwindcss.com/docs/border-color
                  */
-                'border-color-y' => [['border-y' => [$color]]],
+                'border-color-y' => [['border-y' => [$themeColor]]],
                 /**
                  * Border Color Top
                  *
                  * @see https://tailwindcss.com/docs/border-color
                  */
-                'border-color-t' => [['border-t' => [$color]]],
+                'border-color-t' => [['border-t' => [$themeColor]]],
                 /**
                  * Border Color Right
                  *
                  * @see https://tailwindcss.com/docs/border-color
                  */
-                'border-color-r' => [['border-r' => [$color]]],
+                'border-color-r' => [['border-r' => [$themeColor]]],
                 /**
                  * Border Color Bottom
                  *
                  * @see https://tailwindcss.com/docs/border-color
                  */
-                'border-color-b' => [['border-b' => [$color]]],
+                'border-color-b' => [['border-b' => [$themeColor]]],
                 /**
                  * Border Color Left
                  *
                  * @see https://tailwindcss.com/docs/border-color
                  */
-                'border-color-l' => [['border-l' => [$color]]],
+                'border-color-l' => [['border-l' => [$themeColor]]],
                 /**
                  * Divide Color
                  *
                  * @see https://tailwindcss.com/docs/divide-color
                  */
-                'divide-color' => [['divide' => [$color]]],
+                'divide-color' => [['divide' => [$themeColor]]],
                 /**
                  * Outline Style
                  *
                  * @see https://tailwindcss.com/docs/outline-style
                  */
-                'outline-style' => [['outline' => [...self::getLineStyleScale(), 'none', 'hidden']]],
+                'outline-style' => [['outline' => [...self::scaleLineStyle(), 'none', 'hidden']]],
                 /**
                  * Outline Offset
                  *
@@ -1453,7 +1453,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/outline-color
                  */
-                'outline-color' => [['outline' => [$color]]],
+                'outline-color' => [['outline' => [$themeColor]]],
                 // ---------------
                 // --- Effects ---
                 // ---------------
@@ -1466,7 +1466,7 @@ class Config
                         'shadow' => [
                             // Deprecated since Tailwind CSS v4.0.0
                             '',
-                            $shadow,
+                            $themeShadow,
                         ]
                     ]
                 ],
@@ -1474,23 +1474,23 @@ class Config
                  * Box Shadow Color
                  * @see https://tailwindcss.com/docs/box-shadow#setting-the-shadow-color
                  */
-                'shadow-color' => [[ 'shadow' => [$color] ]],
+                'shadow-color' => [[ 'shadow' => [$themeColor] ]],
                 /**
                  * Inset Box Shadow
                  * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-shadow
                  */
-                'inset-shadow' => [[ 'inset-shadow' => ['none', ArbitraryVariableValidator::validate(...), ArbitraryValueValidator::validate(...), $insetShadow] ]],
+                'inset-shadow' => [[ 'inset-shadow' => ['none', ArbitraryVariableValidator::validate(...), ArbitraryValueValidator::validate(...), $themeInsetShadow] ]],
                 /**
                  * Inset Box Shadow Color
                  * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-shadow-color
                  */
-                'inset-shadow-color' => [[ 'inset-shadow' => [$color] ]],
+                'inset-shadow-color' => [[ 'inset-shadow' => [$themeColor] ]],
                 /**
                  * Ring Width
                  *
                  * @see https://tailwindcss.com/docs/box-shadow#adding-a-ring
                 */
-                'ring-w' => [['ring' => self::getBorderWidthScale()]],
+                'ring-w' => [['ring' => self::scaleBorderWidth()]],
                 /**
                  * Ring Width Inset
                  *
@@ -1504,7 +1504,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/box-shadow#setting-the-ring-color
                 */
-                'ring-color' => [['ring' => [$color]]],
+                'ring-color' => [['ring' => [$themeColor]]],
                 /**
                  * Ring Offset Width
                  *
@@ -1520,17 +1520,17 @@ class Config
                  * @deprecated since Tailwind CSS v4.0.0
                  * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
                 */
-                'ring-offset-color' => [['ring-offset' => [$color]]],
+                'ring-offset-color' => [['ring-offset' => [$themeColor]]],
                 /**
                  * Inset Ring Width
                  * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-ring
                 */
-                'inset-ring-w' => [['inset-ring' => self::getBorderWidthScale()]],
+                'inset-ring-w' => [['inset-ring' => self::scaleBorderWidth()]],
                 /**
                 * Inset Ring Color
                 * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-ring-color
                 */
-                'inset-ring-color' => [['inset-ring' => [$color]]],
+                'inset-ring-color' => [['inset-ring' => [$themeColor]]],
                 /**
                  * Opacity
                  *
@@ -1542,13 +1542,13 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/mix-blend-mode
                 */
-                'mix-blend' => [['mix-blend' => [...self::getBlendModeScale(), 'plus-darker', 'plus-lighter']]],
+                'mix-blend' => [['mix-blend' => [...self::scaleBlendMode(), 'plus-darker', 'plus-lighter']]],
                 /**
                  * Background Blend Mode
                  *
                  * @see https://tailwindcss.com/docs/background-blend-mode
                 */
-                'bg-blend' => [['bg-blend' => self::getBlendModeScale()]],
+                'bg-blend' => [['bg-blend' => self::scaleBlendMode()]],
                 // ---------------
                 // --- Filters ---
                 // ---------------
@@ -1566,7 +1566,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/blur
                  */
-                'blur' => [['blur' => [$blur]]],
+                'blur' => [['blur' => [$themeBlur]]],
                 /**
                  * Brightness
                  *
@@ -1594,7 +1594,7 @@ class Config
                  */
                 'drop-shadow' => [
                     [
-                        'drop-shadow' => [$dropShadow]
+                        'drop-shadow' => [$themeDropShadow]
                     ]
                 ],
                 /**
@@ -1669,7 +1669,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/backdrop-blur
                  */
-                'backdrop-blur' => [['backdrop-blur' => [$blur]]],
+                'backdrop-blur' => [['backdrop-blur' => [$themeBlur]]],
                 /**
                  * Backdrop Brightness
                  *
@@ -1782,19 +1782,19 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/border-spacing
                  */
-                'border-spacing' => [['border-spacing' => self::getUnambiguousSpacingScale($spacing)]],
+                'border-spacing' => [['border-spacing' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Border Spacing X
                  *
                  * @see https://tailwindcss.com/docs/border-spacing
                  */
-                'border-spacing-x' => [['border-spacing-x' => self::getUnambiguousSpacingScale($spacing)]],
+                'border-spacing-x' => [['border-spacing-x' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Border Spacing Y
                  *
                  * @see https://tailwindcss.com/docs/border-spacing
                  */
-                'border-spacing-y' => [['border-spacing-y' => self::getUnambiguousSpacingScale($spacing)]],
+                'border-spacing-y' => [['border-spacing-y' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Table Layout
                  *
@@ -1863,7 +1863,7 @@ class Config
                         'initial',
                         ArbitraryVariableValidator::validate(...),
                         ArbitraryValueValidator::validate(...),
-                        $ease
+                        $themeEase
                     ]
                 ]],
                 /**
@@ -1889,7 +1889,7 @@ class Config
                         'none',
                         ArbitraryVariableValidator::validate(...),
                         ArbitraryValueValidator::validate(...),
-                        $animate
+                        $themeAnimate
                     ]
                 ]],
                 // ------------------
@@ -1910,7 +1910,7 @@ class Config
                 */
                 'perspective' => [['perspective' =>
                     [
-                        $perspective,
+                        $themePerspective,
                         ArbitraryVariableValidator::validate(...),
                         ArbitraryValueValidator::validate(...)
                     ]
@@ -1919,23 +1919,23 @@ class Config
                  * Perspective Origin
                  * @see https://tailwindcss.com/docs/perspective-origin
                  */
-                'perspective-origin' => [['perspective-origin' => self::getOriginScale()]],
+                'perspective-origin' => [['perspective-origin' => self::scaleOrigin()]],
                 /**
                  * Rotate
                  *
                  * @see https://tailwindcss.com/docs/rotate
                  */
-                'rotate' => [['rotate' => self::getRotateScale()]],
-                'rotate-x' => [['rotate-x' => self::getRotateScale()]],
-                'rotate-y' => [['rotate-y' => self::getRotateScale()]],
-                'rotate-z' => [['rotate-z' => self::getRotateScale()]],
+                'rotate' => [['rotate' => self::scaleRotate()]],
+                'rotate-x' => [['rotate-x' => self::scaleRotate()]],
+                'rotate-y' => [['rotate-y' => self::scaleRotate()]],
+                'rotate-z' => [['rotate-z' => self::scaleRotate()]],
                 /**
                  * Scale
                  * @see https://tailwindcss.com/docs/scale
                  */
                 'scale' => [
                     [
-                        'scale' => self::getScaleScale(),
+                        'scale' => self::scaleScale(),
                     ],
                 ],
                  /**
@@ -1944,7 +1944,7 @@ class Config
                  */
                 'scale-x' => [
                     [
-                        'scale-x' => self::getScaleScale(),
+                        'scale-x' => self::scaleScale(),
                     ],
                 ],
 
@@ -1954,7 +1954,7 @@ class Config
                  */
                 'scale-y' => [
                     [
-                        'scale-y' => self::getScaleScale(),
+                        'scale-y' => self::scaleScale(),
                     ],
                 ],
 
@@ -1964,7 +1964,7 @@ class Config
                  */
                 'scale-z' => [
                     [
-                        'scale-z' => self::getScaleScale(),
+                        'scale-z' => self::scaleScale(),
                     ],
                 ],
 
@@ -1978,19 +1978,19 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/skew
                  */
-                'skew' => [['skew' => self::getSkewScale($spacing)]],
+                'skew' => [['skew' => self::scaleSkew($themeSpacing)]],
                 /**
                  * Skew X
                  *
                  * @see https://tailwindcss.com/docs/skew
                  */
-                'skew-x' => [['skew-x' => self::getSkewScale($spacing)]],
+                'skew-x' => [['skew-x' => self::scaleSkew($themeSpacing)]],
                 /**
                  * Skew Y
                  *
                  * @see https://tailwindcss.com/docs/skew
                  */
-                'skew-y' => [['skew-y' => self::getSkewScale($spacing)]],
+                'skew-y' => [['skew-y' => self::scaleSkew($themeSpacing)]],
                  /**
                  * Transform
                  * @see https://tailwindcss.com/docs/transform
@@ -2014,7 +2014,7 @@ class Config
                  */
                 'transform-origin' => [
                     [
-                        'origin' => self::getOriginScale(),
+                        'origin' => self::scaleOrigin(),
                     ],
                 ],
                 /**
@@ -2028,7 +2028,7 @@ class Config
                  */
                 'translate' => [
                     [
-                        'translate' => self::getTranslateScale($spacing),
+                        'translate' => self::scaleTranslate($themeSpacing),
                     ],
                 ],
 
@@ -2038,7 +2038,7 @@ class Config
                  */
                 'translate-x' => [
                     [
-                        'translate-x' => self::getTranslateScale($spacing),
+                        'translate-x' => self::scaleTranslate($themeSpacing),
                     ],
                 ],
 
@@ -2048,7 +2048,7 @@ class Config
                  */
                 'translate-y' => [
                     [
-                        'translate-y' => self::getTranslateScale($spacing),
+                        'translate-y' => self::scaleTranslate($themeSpacing),
                     ],
                 ],
 
@@ -2058,7 +2058,7 @@ class Config
                  */
                 'translate-z' => [
                     [
-                        'translate-z' => self::getTranslateScale($spacing),
+                        'translate-z' => self::scaleTranslate($themeSpacing),
                     ],
                 ],
 
@@ -2075,7 +2075,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/accent-color
                  */
-                'accent' => [['accent' => [$color]]],
+                'accent' => [['accent' => [$themeColor]]],
                 /**
                  * Appearance
                  *
@@ -2087,7 +2087,7 @@ class Config
                  * @see https://tailwindcss.com/docs/just-in-time-mode#caret-color-utilities
                  */
                 'caret-color' => [
-                    ['caret' => [$color]],
+                    ['caret' => [$themeColor]],
                 ],
                 /**
                  * Color Scheme
@@ -2173,109 +2173,109 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/scroll-margin
                  */
-                'scroll-m' => [['scroll-m' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-m' => [['scroll-m' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Margin X
                  *
                  * @see https://tailwindcss.com/docs/scroll-margin
                  */
-                'scroll-mx' => [['scroll-mx' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-mx' => [['scroll-mx' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Margin Y
                  *
                  * @see https://tailwindcss.com/docs/scroll-margin
                  */
-                'scroll-my' => [['scroll-my' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-my' => [['scroll-my' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Margin Start
                  *
                  * @see https://tailwindcss.com/docs/scroll-margin
                  */
-                'scroll-ms' => [['scroll-ms' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-ms' => [['scroll-ms' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Margin End
                  *
                  * @see https://tailwindcss.com/docs/scroll-margin
                  */
-                'scroll-me' => [['scroll-me' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-me' => [['scroll-me' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Margin Top
                  *
                  * @see https://tailwindcss.com/docs/scroll-margin
                  */
-                'scroll-mt' => [['scroll-mt' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-mt' => [['scroll-mt' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Margin Right
                  *
                  * @see https://tailwindcss.com/docs/scroll-margin
                  */
-                'scroll-mr' => [['scroll-mr' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-mr' => [['scroll-mr' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Margin Bottom
                  *
                  * @see https://tailwindcss.com/docs/scroll-margin
                  */
-                'scroll-mb' => [['scroll-mb' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-mb' => [['scroll-mb' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Margin Left
                  *
                  * @see https://tailwindcss.com/docs/scroll-margin
                  */
-                'scroll-ml' => [['scroll-ml' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-ml' => [['scroll-ml' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Padding
                  *
                  * @see https://tailwindcss.com/docs/scroll-padding
                  */
-                'scroll-p' => [['scroll-p' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-p' => [['scroll-p' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Padding X
                  *
                  * @see https://tailwindcss.com/docs/scroll-padding
                  */
-                'scroll-px' => [['scroll-px' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-px' => [['scroll-px' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Padding Y
                  *
                  * @see https://tailwindcss.com/docs/scroll-padding
                  */
-                'scroll-py' => [['scroll-py' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-py' => [['scroll-py' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Padding Start
                  *
                  * @see https://tailwindcss.com/docs/scroll-padding
                  */
-                'scroll-ps' => [['scroll-ps' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-ps' => [['scroll-ps' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Padding End
                  *
                  * @see https://tailwindcss.com/docs/scroll-padding
                  */
-                'scroll-pe' => [['scroll-pe' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-pe' => [['scroll-pe' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Padding Top
                  *
                  * @see https://tailwindcss.com/docs/scroll-padding
                  */
-                'scroll-pt' => [['scroll-pt' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-pt' => [['scroll-pt' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Padding Right
                  *
                  * @see https://tailwindcss.com/docs/scroll-padding
                  */
-                'scroll-pr' => [['scroll-pr' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-pr' => [['scroll-pr' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Padding Bottom
                  *
                  * @see https://tailwindcss.com/docs/scroll-padding
                  */
-                'scroll-pb' => [['scroll-pb' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-pb' => [['scroll-pb' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Padding Left
                  *
                  * @see https://tailwindcss.com/docs/scroll-padding
                  */
-                'scroll-pl' => [['scroll-pl' => self::getUnambiguousSpacingScale($spacing)]],
+                'scroll-pl' => [['scroll-pl' => self::scaleUnambiguousSpacing($themeSpacing)]],
                 /**
                  * Scroll Snap Align
                  *
@@ -2362,7 +2362,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/fill
                  */
-                'fill' => [['fill' => ['none', $color]]],
+                'fill' => [['fill' => ['none', $themeColor]]],
                 /**
                  * Stroke Width
                  *
@@ -2374,7 +2374,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/stroke
                  */
-                'stroke' => [['stroke' => ['none', $color]]],
+                'stroke' => [['stroke' => ['none', $themeColor]]],
                 // ---------------------
                 // --- Accessibility ---
                 // ---------------------
@@ -2498,50 +2498,9 @@ class Config
     }
 
     /**
-     * @return array<int, callable>
-     */
-    private static function getNumber(): array
-    {
-        return [
-            NumberValidator::validate(...),
-            ArbitraryNumberValidator::validate(...),
-        ];
-    }
-
-    /**
-     * @return array<int, string|callable|ThemeGetter>
-     */
-    private static function getSpacingWithAutoAndArbitrary(ThemeGetter $spacing): array
-    {
-        return [
-            'auto',
-            ArbitraryValueValidator::validate(...),
-            $spacing,
-        ];
-    }
-
-    /**
-     * @return array<int, string>
-     */
-    private static function getPositions(): array
-    {
-        return [
-            'bottom',
-            'center',
-            'left',
-            'left-bottom',
-            'left-top',
-            'right',
-            'right-bottom',
-            'right-top',
-            'top',
-        ];
-    }
-
-    /**
      * @return array<int, string|callable>
      */
-    private static function getBreakScale(): array
+    private static function scaleBreak(): array
     {
         return [
             'auto', 'avoid', 'all', 'avoid-page', 'page', 'left', 'right', 'column'
@@ -2551,7 +2510,7 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getPositionScale(): array
+    private static function scalePosition(): array
     {
         return [
             'bottom',
@@ -2569,7 +2528,7 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getOverflowScale(): array
+    private static function scaleOverflow(): array
     {
         return [
             'auto', 'hidden', 'clip', 'visible', 'scroll'
@@ -2579,7 +2538,7 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getOverscrollScale(): array
+    private static function scaleOverscroll(): array
     {
         return [
             'auto', 'contain', 'none'
@@ -2589,17 +2548,17 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getInsetScale(ThemeGetter $spacing): array
+    private static function scaleInset(ThemeGetter $themeSpacing): array
     {
         return [
-            FractionValidator::validate(...), 'px', 'full', 'auto', ArbitraryVariableValidator::validate(...), ArbitraryValueValidator::validate(...), $spacing
+            FractionValidator::validate(...), 'px', 'full', 'auto', ArbitraryVariableValidator::validate(...), ArbitraryValueValidator::validate(...), $themeSpacing
         ];
     }
 
     /**
      * @return array<int, string|callable>
      */
-    private static function getGridTemplateColsRowsScale(): array
+    private static function scaleGridTemplateColsRows(): array
     {
         return [
             IntegerValidator::validate(...), 'none', 'subgrid',  ArbitraryVariableValidator::validate(...), ArbitraryValueValidator::validate(...)
@@ -2609,7 +2568,7 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getGridColRowStartAndEndScale(): array
+    private static function scaleGridColRowStartAndEnd(): array
     {
         return [
             'auto',
@@ -2622,7 +2581,7 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getGridColRowStartOrEndScale(): array
+    private static function scaleGridColRowStartOrEnd(): array
     {
         return [
             IntegerValidator::validate(...),
@@ -2635,7 +2594,7 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getTranslateScale(ThemeGetter $spacing): array
+    private static function scaleTranslate(ThemeGetter $themeSpacing): array
     {
         return [
             FractionValidator::validate(...),
@@ -2643,14 +2602,14 @@ class Config
             'px',
             ArbitraryVariableValidator::validate(...),
             ArbitraryValueValidator::validate(...),
-            $spacing
+            $themeSpacing
         ];
     }
 
     /**
      * @return array<int, string|callable>
      */
-    private static function getGridAutoColsRowsScale(): array
+    private static function scaleGridAutoColsRows(): array
     {
         return [
             'auto',
@@ -2665,19 +2624,19 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getGapScale(ThemeGetter $spacing): array
+    private static function scaleGap(ThemeGetter $themeSpacing): array
     {
         return [
             ArbitraryVariableValidator::validate(...),
             ArbitraryValueValidator::validate(...),
-            $spacing
+            $themeSpacing
         ];
     }
 
     /**
      * @return array<int, string|callable>
      */
-    private static function getAlignPrimaryAxisScale(): array
+    private static function scaleAlignPrimaryAxis(): array
     {
         return [
             'start', 'end', 'center', 'between', 'around', 'evenly', 'stretch', 'baseline'
@@ -2687,7 +2646,7 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getAlignSecondaryAxisScale(): array
+    private static function scaleAlignSecondaryAxis(): array
     {
         return ['start', 'end', 'center', 'stretch'];
     }
@@ -2695,23 +2654,23 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getUnambiguousSpacingScale(ThemeGetter $spacing): array
+    private static function scaleUnambiguousSpacing(ThemeGetter $themeSpacing): array
     {
-        return [ArbitraryVariableValidator::validate(...), ArbitraryValueValidator::validate(...), $spacing];
+        return [ArbitraryVariableValidator::validate(...), ArbitraryValueValidator::validate(...), $themeSpacing];
     }
 
     /**
      * @return array<int, string|callable>
      */
-    private static function getMarginScale(ThemeGetter $spacing): array
+    private static function scaleMargin(ThemeGetter $themeSpacing): array
     {
-        return ['auto', ...self::getUnambiguousSpacingScale($spacing)];
+        return ['auto', ...self::scaleUnambiguousSpacing($themeSpacing)];
     }
 
     /**
      * @return array<int, string|callable>
      */
-    private static function getSizingScale(ThemeGetter $spacing): array
+    private static function scaleSizing(ThemeGetter $themeSpacing): array
     {
         return [
             FractionValidator::validate(...),
@@ -2729,14 +2688,14 @@ class Config
             'fit',
             ArbitraryVariableValidator::validate(...),
             ArbitraryValueValidator::validate(...),
-            $spacing
+            $themeSpacing
         ];
     }
 
     /**
      * @return array<int, string|callable>
      */
-    private static function getGradientStopPositionScale(): array
+    private static function scaleGradientStopPosition(): array
     {
         return [
             PercentValidator::validate(...),
@@ -2747,7 +2706,7 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getBorderWidthScale(): array
+    private static function scaleBorderWidth(): array
     {
         return [
             '',
@@ -2760,7 +2719,7 @@ class Config
     /**
      * @return array<int, string|callable>
      */
-    private static function getLineStyleScale(): array
+    private static function scaleLineStyle(): array
     {
         return ['solid', 'dashed', 'dotted', 'double'];
     }
@@ -2768,21 +2727,7 @@ class Config
     /**
      * @return array<int, string>
      */
-    private static function getLineStyles(): array
-    {
-        return [
-            'solid',
-            'dashed',
-            'dotted',
-            'double',
-            'none',
-        ];
-    }
-
-    /**
-     * @return array<int, string>
-     */
-    private static function getBlendModeScale(): array
+    private static function scaleBlendMode(): array
     {
         return [
             'normal',
@@ -2808,7 +2753,7 @@ class Config
     /**
      * @return array<int, string>
      */
-    private static function getOriginScale(): array
+    private static function scaleOrigin(): array
     {
         return [
             'center',
@@ -2828,7 +2773,7 @@ class Config
     /**
      * @return array<int, string>
      */
-    private static function getRotateScale(): array
+    private static function scaleRotate(): array
     {
         return [
             'none',
@@ -2841,7 +2786,7 @@ class Config
     /**
      * @return array<int, string>
      */
-    private static function getScaleScale(): array
+    private static function scaleScale(): array
     {
         return [
             'none',
@@ -2854,14 +2799,14 @@ class Config
     /**
      * @return array<int, string>
      */
-    private static function getSkewScale(ThemeGetter $spacing): array
+    private static function scaleSkew(ThemeGetter $themeSpacing): array
     {
         return [
             FractionValidator::validate(...),
             'full', 'px',
             ArbitraryVariableValidator::validate(...),
             ArbitraryValueValidator::validate(...),
-            $spacing
+            $themeSpacing
         ];
     }
 }
