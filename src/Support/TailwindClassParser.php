@@ -181,11 +181,8 @@ class TailwindClassParser
 
         $baseClassNameWithImportantModifier =
             $modifiers === [] ? $className : Str::substr($className, $modifierStart);
-        $hasImportantModifier =
-            Str::startsWith($baseClassNameWithImportantModifier, self::IMPORTANT_MODIFIER);
-        $baseClassName = $hasImportantModifier
-            ? Str::substr($baseClassNameWithImportantModifier, 1)
-            : $baseClassNameWithImportantModifier;
+        $baseClassName = $this->stripImportantModifier($baseClassNameWithImportantModifier);
+        $hasImportantModifier = $baseClassName !== $baseClassNameWithImportantModifier;
 
         $maybePostfixModifierPosition = $postfixModifierPosition && $postfixModifierPosition > $modifierStart
             ? $postfixModifierPosition - $modifierStart
@@ -198,6 +195,23 @@ class TailwindClassParser
             'maybePostfixModifierPosition' => $maybePostfixModifierPosition,
         ];
     }
+
+    function stripImportantModifier(string $baseClassName): string
+    {
+        $important = '!';
+
+        if (str_ends_with($baseClassName, $important)) {
+            return substr($baseClassName, 0, -1);
+        }
+
+        // Legacy: important modifier at the start
+        if (str_starts_with($baseClassName, $important)) {
+            return substr($baseClassName, 1);
+        }
+
+        return $baseClassName;
+    }
+
 
     /**
      * @param  array<array-key, string>  $modifiers
