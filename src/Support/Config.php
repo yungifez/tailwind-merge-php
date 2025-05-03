@@ -120,9 +120,15 @@ class Config
             'cacheSize' => 500,
             'prefix' => null,
             'theme' => [
+                'animate' => ['spin', 'ping', 'pulse', 'bounce'],
+                'aspect' => ['video'],
+                'blur' => [TshirtSizeValidator::validate(...)],
+                'breakpoint' => [TshirtSizeValidator::validate(...)],
                 'color' => [AnyValueValidator::validate(...)],
-                'font' => [AnyNonArbitraryValidator::validate(...), ArbitraryVariableFamilyNameValidator::validate(...), ArbitraryValueValidator::validate(...)],
-                'text' => ['base', TshirtSizeValidator::validate(...), ArbitraryVariableLengthValidator::class, ArbitraryLengthValidator::validate(...)],
+                'container' => [TshirtSizeValidator::validate(...)],
+                'drop-shadow' => [TshirtSizeValidator::validate(...)],
+                'ease' => ['in', 'out', 'in-out'],
+                'font' => [AnyValueValidator::validate(...)],
                 'font-weight' => [
                     'thin',
                     'extralight',
@@ -134,39 +140,14 @@ class Config
                     'extrabold',
                     'black',
                 ],
-                'tracking' => ['tighter', 'tight', 'normal', 'wide', 'wider', 'widest'],
-                'leading' => ['none', 'tight', 'snug', 'normal', 'relaxed', 'loose'],
-                'breakpoint' => [TshirtSizeValidator::validate(...)],
-                'container' => [TshirtSizeValidator::validate(...)],
-                'spacing' => [NumberValidator::validate(...), ArbitraryVariableLengthValidator::validate(...), ArbitraryLengthValidator::validate(...)],
-                'radius' => [
-                // Deprecated since Tailwind CSS v4.0.0
-                    '',
-                    TshirtSizeValidator::validate(...),
-                    'none',
-                    'full',
-                    ArbitraryVariableValidator::validate(...),
-                    ArbitraryValueValidator::validate(...)
-                ],
-                'shadow' => [TshirtSizeValidator::validate(...), 'none', ArbitraryVariableShadowValidator::validate(...), ArbitraryShadowValidator::validate(...)],
                 'inset-shadow' => [TshirtSizeValidator::validate(...)],
-                'drop-shadow' => [
-                    // Deprecated since Tailwind CSS v4.0.0
-                    '',
-                    TshirtSizeValidator::validate(...),
-                    'none',
-                    ArbitraryVariableValidator::validate(...),
-                    ArbitraryValueValidator::validate(...),
-                ],
-                'blur' => [
-                    // Deprecated since Tailwind CSS v4.0.0
-                    '',
-                    TshirtSizeValidator::validate(...),
-                    'none',
-                    ArbitraryVariableValidator::validate(...),
-                    ArbitraryValueValidator::validate(...)
-                ],
+                'leading' => ['none', 'tight', 'snug', 'normal', 'relaxed', 'loose'],
                 'perspective' => ['dramatic', 'near', 'normal', 'midrange', 'distant', 'none'],
+                'radius' => [TshirtSizeValidator::validate(...)],
+                'shadow' => [TshirtSizeValidator::validate(...)],
+                'spacing' => [NumberValidator::validate(...)],
+                'text' => [TshirtSizeValidator::validate(...)],
+                'tracking' => ['tighter', 'tight', 'normal', 'wide', 'wider', 'widest'],
                 'aspect' => ['video'],
                 'ease' => ['in', 'out', 'in-out'],
                 'animate' => ['spin', 'ping', 'pulse', 'bounce'],
@@ -831,7 +812,14 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/font-size
                  */
-                'font-size' => [['text' => [$themeText]]],
+                'font-size' => [[ 'text' =>
+                    [
+                        'base',
+                        $themeText,
+                        ArbitraryVariableLengthValidator::validate(...),
+                        ArbitraryLengthValidator::validate(...),
+                    ]
+                ]],
                 /**
                  * Font Smoothing
                  *
@@ -880,7 +868,11 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/font-family
                  */
-                'font-family' => [['font' => [$themeFont]]],
+                'font-family' => [['font' => [
+                    ArbitraryVariableFamilyNameValidator::validate(...),
+                    ArbitraryValueValidator::validate(...),
+                    $themeFont,
+                ]]],
                 /**
                  * Font Variant Numeric
                  *
@@ -976,13 +968,13 @@ class Config
                  * @deprecated since Tailwind CSS v3.0.0
                  * @see https://tailwindcss.com/docs/placeholder-color
                  */
-                'placeholder-color' => [['placeholder' => [$themeColor]]],
+                'placeholder-color' => [['placeholder' => self::scaleColor($themeColor)]],
                 /**
                  * Text Color
                  *
                  * @see https://tailwindcss.com/docs/text-color
                  */
-                'text-color' => [['text' => [$themeColor]]],
+                'text-color' => [['text' => self::scaleColor($themeColor)]],
                 /**
                  * Text Decoration
                  *
@@ -1012,7 +1004,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/text-decoration-color
                  */
-                'text-decoration-color' => [['decoration' => [$themeColor]]],
+                'text-decoration-color' => [['decoration' => self::scaleColor($themeColor)]],
                 /**
                  * Text Underline Offset
                  *
@@ -1158,7 +1150,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/background-color
                  */
-                'bg-color' => [['bg' => [$themeColor]]],
+                'bg-color' => [['bg' => self::scaleColor($themeColor)]],
                 /**
                  * Gradient Color Stops From Position
                  *
@@ -1182,19 +1174,19 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/gradient-color-stops
                  */
-                'gradient-from' => [['from' => [$themeColor]]],
+                'gradient-from' => [['from' => self::scaleColor($themeColor)]],
                 /**
                  * Gradient Color Stops Via
                  *
                  * @see https://tailwindcss.com/docs/gradient-color-stops
                  */
-                'gradient-via' => [['via' => [$themeColor]]],
+                'gradient-via' => [['via' => self::scaleColor($themeColor)]],
                 /**
                  * Gradient Color Stops To
                  *
                  * @see https://tailwindcss.com/docs/gradient-color-stops
                  */
-                'gradient-to' => [['to' => [$themeColor]]],
+                'gradient-to' => [['to' => self::scaleColor($themeColor)]],
                 // ---------------
                 // --- Borders ---
                 // ---------------
@@ -1203,91 +1195,91 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded' => [['rounded' => [$themeRadius]]],
+                'rounded' => [['rounded' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius Start
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-s' => [['rounded-s' => [$themeRadius]]],
+                'rounded-s' => [['rounded-s' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius End
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-e' => [['rounded-e' => [$themeRadius]]],
+                'rounded-e' => [['rounded-e' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius Top
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-t' => [['rounded-t' => [$themeRadius]]],
+                'rounded-t' => [['rounded-t' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius Right
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-r' => [['rounded-r' => [$themeRadius]]],
+                'rounded-r' => [['rounded-r' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius Bottom
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-b' => [['rounded-b' => [$themeRadius]]],
+                'rounded-b' => [['rounded-b' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius Left
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-l' => [['rounded-l' => [$themeRadius]]],
+                'rounded-l' => [['rounded-l' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius Start Start
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-ss' => [['rounded-ss' => [$themeRadius]]],
+                'rounded-ss' => [['rounded-ss' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius Start End
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-se' => [['rounded-se' => [$themeRadius]]],
+                'rounded-se' => [['rounded-se' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius End End
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-ee' => [['rounded-ee' => [$themeRadius]]],
+                'rounded-ee' => [['rounded-ee' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius End Start
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-es' => [['rounded-es' => [$themeRadius]]],
+                'rounded-es' => [['rounded-es' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius Top Left
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-tl' => [['rounded-tl' => [$themeRadius]]],
+                'rounded-tl' => [['rounded-tl' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius Top Right
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-tr' => [['rounded-tr' => [$themeRadius]]],
+                'rounded-tr' => [['rounded-tr' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius Bottom Right
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-br' => [['rounded-br' => [$themeRadius]]],
+                'rounded-br' => [['rounded-br' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Radius Bottom Left
                  *
                  * @see https://tailwindcss.com/docs/border-radius
                  */
-                'rounded-bl' => [['rounded-bl' => [$themeRadius]]],
+                'rounded-bl' => [['rounded-bl' => self::scaleRadius($themeRadius)]],
                 /**
                  * Border Width
                  *
@@ -1385,7 +1377,7 @@ class Config
                  */
                 'border-color' => [
                     [
-                        'border' => [$themeColor],
+                        'border' => self::scaleColor($themeColor),
                     ],
                 ],
                 /**
@@ -1393,43 +1385,43 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/border-color
                  */
-                'border-color-x' => [['border-x' => [$themeColor]]],
+                'border-color-x' => [['border-x' => self::scaleColor($themeColor)]],
                 /**
                  * Border Color Y
                  *
                  * @see https://tailwindcss.com/docs/border-color
                  */
-                'border-color-y' => [['border-y' => [$themeColor]]],
+                'border-color-y' => [['border-y' => self::scaleColor($themeColor)]],
                 /**
                  * Border Color Top
                  *
                  * @see https://tailwindcss.com/docs/border-color
                  */
-                'border-color-t' => [['border-t' => [$themeColor]]],
+                'border-color-t' => [['border-t' => self::scaleColor($themeColor)]],
                 /**
                  * Border Color Right
                  *
                  * @see https://tailwindcss.com/docs/border-color
                  */
-                'border-color-r' => [['border-r' => [$themeColor]]],
+                'border-color-r' => [['border-r' => self::scaleColor($themeColor)]],
                 /**
                  * Border Color Bottom
                  *
                  * @see https://tailwindcss.com/docs/border-color
                  */
-                'border-color-b' => [['border-b' => [$themeColor]]],
+                'border-color-b' => [['border-b' => self::scaleColor($themeColor)]],
                 /**
                  * Border Color Left
                  *
                  * @see https://tailwindcss.com/docs/border-color
                  */
-                'border-color-l' => [['border-l' => [$themeColor]]],
+                'border-color-l' => [['border-l' => self::scaleColor($themeColor)]],
                 /**
                  * Divide Color
                  *
                  * @see https://tailwindcss.com/docs/divide-color
                  */
-                'divide-color' => [['divide' => [$themeColor]]],
+                'divide-color' => [['divide' => self::scaleColor($themeColor)]],
                 /**
                  * Outline Style
                  *
@@ -1453,7 +1445,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/outline-color
                  */
-                'outline-color' => [['outline' => [$themeColor]]],
+                'outline-color' => [['outline' => self::scaleColor($themeColor)]],
                 // ---------------
                 // --- Effects ---
                 // ---------------
@@ -1466,7 +1458,10 @@ class Config
                         'shadow' => [
                             // Deprecated since Tailwind CSS v4.0.0
                             '',
+                            'none',
                             $themeShadow,
+                            ArbitraryVariableShadowValidator::validate(...),
+                            ArbitraryShadowValidator::validate(...),
                         ]
                     ]
                 ],
@@ -1474,7 +1469,7 @@ class Config
                  * Box Shadow Color
                  * @see https://tailwindcss.com/docs/box-shadow#setting-the-shadow-color
                  */
-                'shadow-color' => [[ 'shadow' => [$themeColor] ]],
+                'shadow-color' => [[ 'shadow' => self::scaleColor($themeColor) ]],
                 /**
                  * Inset Box Shadow
                  * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-shadow
@@ -1484,7 +1479,7 @@ class Config
                  * Inset Box Shadow Color
                  * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-shadow-color
                  */
-                'inset-shadow-color' => [[ 'inset-shadow' => [$themeColor] ]],
+                'inset-shadow-color' => [[ 'inset-shadow' => self::scaleColor($themeColor) ]],
                 /**
                  * Ring Width
                  *
@@ -1504,7 +1499,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/box-shadow#setting-the-ring-color
                 */
-                'ring-color' => [['ring' => [$themeColor]]],
+                'ring-color' => [['ring' => self::scaleColor($themeColor)]],
                 /**
                  * Ring Offset Width
                  *
@@ -1520,7 +1515,7 @@ class Config
                  * @deprecated since Tailwind CSS v4.0.0
                  * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
                 */
-                'ring-offset-color' => [['ring-offset' => [$themeColor]]],
+                'ring-offset-color' => [['ring-offset' => self::scaleColor($themeColor)]],
                 /**
                  * Inset Ring Width
                  * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-ring
@@ -1530,7 +1525,7 @@ class Config
                 * Inset Ring Color
                 * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-ring-color
                 */
-                'inset-ring-color' => [['inset-ring' => [$themeColor]]],
+                'inset-ring-color' => [['inset-ring' => self::scaleColor($themeColor)]],
                 /**
                  * Opacity
                  *
@@ -1566,7 +1561,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/blur
                  */
-                'blur' => [['blur' => [$themeBlur]]],
+                'blur' => [['blur' => self::scaleBlur($themeBlur)]],
                 /**
                  * Brightness
                  *
@@ -1594,7 +1589,14 @@ class Config
                  */
                 'drop-shadow' => [
                     [
-                        'drop-shadow' => [$themeDropShadow]
+                        'drop-shadow' => [
+                            // Deprecated since Tailwind CSS v4.0.0
+                            '',
+                            'none',
+                            $themeDropShadow,
+                            ArbitraryVariableShadowValidator::validate(...),
+                            ArbitraryShadowValidator::validate(...),
+                        ]
                     ]
                 ],
                 /**
@@ -1669,7 +1671,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/backdrop-blur
                  */
-                'backdrop-blur' => [['backdrop-blur' => [$themeBlur]]],
+                'backdrop-blur' => [['backdrop-blur' => self::scaleBlur($themeBlur)]],
                 /**
                  * Backdrop Brightness
                  *
@@ -1861,9 +1863,9 @@ class Config
                     [
                         'linear',
                         'initial',
+                        $themeEase,
                         ArbitraryVariableValidator::validate(...),
                         ArbitraryValueValidator::validate(...),
-                        $themeEase
                     ]
                 ]],
                 /**
@@ -1887,9 +1889,9 @@ class Config
                 'animate' => [['animate' =>
                     [
                         'none',
+                        $themeAnimate,
                         ArbitraryVariableValidator::validate(...),
                         ArbitraryValueValidator::validate(...),
-                        $themeAnimate
                     ]
                 ]],
                 // ------------------
@@ -2075,7 +2077,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/accent-color
                  */
-                'accent' => [['accent' => [$themeColor]]],
+                'accent' => [['accent' => self::scaleColor($themeColor)]],
                 /**
                  * Appearance
                  *
@@ -2087,7 +2089,7 @@ class Config
                  * @see https://tailwindcss.com/docs/just-in-time-mode#caret-color-utilities
                  */
                 'caret-color' => [
-                    ['caret' => [$themeColor]],
+                    ['caret' => self::scaleColor($themeColor)],
                 ],
                 /**
                  * Color Scheme
@@ -2362,7 +2364,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/fill
                  */
-                'fill' => [['fill' => ['none', $themeColor]]],
+                'fill' => [['fill' => ['none', ...self::scaleColor($themeColor)]]],
                 /**
                  * Stroke Width
                  *
@@ -2374,7 +2376,7 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/stroke
                  */
-                'stroke' => [['stroke' => ['none', $themeColor]]],
+                'stroke' => [['stroke' => ['none', ...self::scaleColor($themeColor)]]],
                 // ---------------------
                 // --- Accessibility ---
                 // ---------------------
@@ -2534,6 +2536,44 @@ class Config
             'auto', 'hidden', 'clip', 'visible', 'scroll'
         ];
     }
+
+    /**
+     * @return array<int, string|callable>
+     */
+    private static function scaleColor(ThemeGetter $themeColor): array
+    {
+        return [$themeColor, ArbitraryVariableValidator::validate(...), ArbitraryValueValidator::validate(...)];
+    }
+
+    /**
+     * @return array<int, string|callable>
+     */
+    private static function scaleRadius(ThemeGetter $themeRadius): array
+    {
+        return [
+            '',                          // Deprecated empty string
+            'none',
+            'full',
+            $themeRadius,
+            ArbitraryVariableValidator::validate(...),
+            ArbitraryValueValidator::validate(...),
+        ];
+    }
+
+    /**
+     * @return array<int, string|callable>
+     */
+    private static function scaleBlur(ThemeGetter $themeBlur): array
+    {
+        return [
+            '',                          // Deprecated empty string
+            'none',
+            $themeBlur,
+            ArbitraryVariableValidator::validate(...),
+            ArbitraryValueValidator::validate(...),
+        ];
+    }
+
 
     /**
      * @return array<int, string|callable>
