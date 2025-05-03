@@ -141,6 +141,7 @@ class TailwindClassParser
 
         $modifiers = [];
 
+        $parentDepth = 0;
         $bracketDepth = 0;
         $modifierStart = 0;
         $postfixModifierPosition = null;
@@ -148,7 +149,7 @@ class TailwindClassParser
         for ($index = 0; $index < strlen($className); $index++) {
             $currentCharacter = $className[$index];
 
-            if ($bracketDepth === 0) {
+            if ($bracketDepth === 0 && $parentDepth === 0) {
                 if (
                     $currentCharacter === $firstSeparatorCharacter &&
                     ($isSeparatorSingleCharacter ||
@@ -171,6 +172,10 @@ class TailwindClassParser
                 $bracketDepth++;
             } elseif ($currentCharacter === ']') {
                 $bracketDepth--;
+            } elseif ($currentCharacter === '(') {
+                $parentDepth++;
+            } elseif ($currentCharacter === ')') {
+                $parentDepth--;
             }
         }
 

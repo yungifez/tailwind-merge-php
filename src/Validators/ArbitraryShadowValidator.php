@@ -16,7 +16,7 @@ class ArbitraryShadowValidator implements \TailwindMerge\Contracts\ValidatorCont
 
     public static function validate(string $value): bool
     {
-        return self::getIsArbitraryValue($value, '', self::isShadow(...));
+        return self::getIsArbitraryValue($value, 'shadow', self::isShadow(...));
     }
 
     private static function isShadow(string $value): bool

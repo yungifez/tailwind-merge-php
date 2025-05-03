@@ -8,7 +8,7 @@ test('theme scale can be extended', function ($input, $output) {
         ->withConfiguration([
             'theme' => [
                 'spacing' => ['my-space'],
-                'margin' => ['my-margin'],
+                'leading' => ['my-leading'],
             ],
         ])
         ->make();
@@ -16,7 +16,7 @@ test('theme scale can be extended', function ($input, $output) {
     expect($instance->merge($input))->toBe($output);
 })->with([
     ['p-3 p-my-space p-my-margin', 'p-my-space p-my-margin'],
-    ['m-3 m-my-space m-my-margin', 'm-my-margin'],
+    ['leading-3 leading-my-space leading-my-leading', 'leading-my-leading'],
 ]);
 
 test('theme object can be extended', function ($input, $output) {

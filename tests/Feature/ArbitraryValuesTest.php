@@ -20,7 +20,7 @@ it('handles simple conflicts with arbitrary values correctly', function (string 
     // Handling of value `0`
     ['min-h-[0.5px] min-h-[0]', 'min-h-[0]'],
     ['text-[0.5px] text-[color:0]', 'text-[0.5px] text-[color:0]'],
-    ['text-[0.5px] text-[--my-0]', 'text-[0.5px] text-[--my-0]'],
+    ['text-[0.5px] text-(--my-0)', 'text-[0.5px] text-(--my-0)'],
 ]);
 
 it('handles arbitrary length conflicts with labels and modifiers correctly', function (string $input, string $output) {
@@ -54,6 +54,14 @@ it('handles ambiguous arbitrary values correctly', function (string $input, stri
     ['text-2xl text-[calc(theme(fontSize.4xl)/1.125)]', 'text-[calc(theme(fontSize.4xl)/1.125)]'],
     ['bg-cover bg-[percentage:30%] bg-[length:200px_100px]', 'bg-[length:200px_100px]'],
     ['bg-none bg-[url(.)] bg-[image:.] bg-[url:.] bg-[linear-gradient(.)] bg-linear-to-r', 'bg-linear-to-r'],
+]);
+
+it('handles arbitrary custom properties correctly', function (string $input, string $output) {
+    expect(TailwindMerge::instance()->merge($input))
+        ->toBe($output);
+})->with([
+    ['bg-red bg-(--other-red) bg-bottom bg-(position:-my-pos)', 'bg-(--other-red) bg-(position:-my-pos)'],
+    ['shadow-xs shadow-(shadow:--something) shadow-red shadow-(--some-other-shadow) shadow-(color:--some-color)', 'shadow-(--some-other-shadow) shadow-(color:--some-color)'],
 ]);
 
 it('handles ambiguous non conflicting arbitrary values correctly', function (string $input, string $output) {

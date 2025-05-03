@@ -26,4 +26,24 @@ trait ValidatesArbitraryValue
 
         return false;
     }
+
+    /**
+     * @param  string|array<array-key, string>  $labels
+     */
+    protected static function getIsArbitraryVariable(string $value, string|array $labels, $shouldMatchNoLabel = false): bool
+    {
+        $labels = is_string($labels) ? [$labels] : $labels;
+
+        preg_match('/^\((?:(\w[\w-]*):)?(.+)\)$/i', $value, $result);
+
+        if ($result !== []) {
+            if ($result[1]) {
+                return in_array($result[1], $labels);
+            }
+
+            return $shouldMatchNoLabel;
+        }
+
+        return false;
+    }
 }
