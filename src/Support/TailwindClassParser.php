@@ -5,7 +5,6 @@ namespace TailwindMerge\Support;
 use TailwindMerge\ValueObjects\ClassPartObject;
 use TailwindMerge\ValueObjects\ClassValidatorObject;
 use TailwindMerge\ValueObjects\ParsedClass;
-use function pcov\waiting;
 
 class TailwindClassParser
 {
@@ -20,6 +19,20 @@ class TailwindClassParser
     private $prefix = 'tw';
 
     private const MODIFIER_SEPARATOR = ':';
+
+    private const POSITION_SENSITIVE_MODIFIERS = [
+        'before',
+        'after',
+        'placeholder',
+        'file',
+        'marker',
+        'selection',
+        'first-line',
+        'first-letter',
+        'backdrop',
+        '*',
+        '**',
+    ];
 
     /**
      * @param  array{cacheSize: int, prefix: ?string, theme: array<string, mixed>, classGroups: array<string, mixed>,conflictingClassGroups: array<string, array<int, string>>, conflictingClassGroupModifiers: array<string, array<int, string>>}  $config
@@ -255,9 +268,9 @@ class TailwindClassParser
         $unsortedModifiers = Collection::make();
 
         foreach ($modifiers as $modifier) {
-            $isArbitraryVariant = $modifier[0] === '[';
+            $isPositionSensitive = $modifier[0] === '[' || isset(self::POSITION_SENSITIVE_MODIFIERS[$modifier]);
 
-            if ($isArbitraryVariant) {
+            if ($isPositionSensitive) {
                 $sortedModifiers = $sortedModifiers->concat([...$unsortedModifiers->sort()->all(), $modifier]);
                 $unsortedModifiers = Collection::make();
             } else {
