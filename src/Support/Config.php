@@ -616,55 +616,55 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'p' => [['p' => self::scaleUnambiguousSpacing($themeSpacing)]],
+                'p' => [['p' => self::scalePadding($themeSpacing)]],
                 /**
                  * Padding X
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'px' => [['px' => self::scaleUnambiguousSpacing($themeSpacing)]],
+                'px' => [['px' => self::scalePadding($themeSpacing)]],
                 /**
                  * Padding Y
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'py' => [['py' => self::scaleUnambiguousSpacing($themeSpacing)]],
+                'py' => [['py' => self::scalePadding($themeSpacing)]],
                 /**
                  * Padding Start
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'ps' => [['ps' => self::scaleUnambiguousSpacing($themeSpacing)]],
+                'ps' => [['ps' => self::scalePadding($themeSpacing)]],
                 /**
                  * Padding End
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'pe' => [['pe' => self::scaleUnambiguousSpacing($themeSpacing)]],
+                'pe' => [['pe' => self::scalePadding($themeSpacing)]],
                 /**
                  * Padding Top
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'pt' => [['pt' => self::scaleUnambiguousSpacing($themeSpacing)]],
+                'pt' => [['pt' => self::scalePadding($themeSpacing)]],
                 /**
                  * Padding Right
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'pr' => [['pr' => self::scaleUnambiguousSpacing($themeSpacing)]],
+                'pr' => [['pr' => self::scalePadding($themeSpacing)]],
                 /**
                  * Padding Bottom
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'pb' => [['pb' => self::scaleUnambiguousSpacing($themeSpacing)]],
+                'pb' => [['pb' => self::scalePadding($themeSpacing)]],
                 /**
                  * Padding Left
                  *
                  * @see https://tailwindcss.com/docs/padding
                  */
-                'pl' => [['pl' => self::scaleUnambiguousSpacing($themeSpacing)]],
+                'pl' => [['pl' => self::scalePadding($themeSpacing)]],
                 /**
                  * Margin
                  *
@@ -764,7 +764,13 @@ class Config
                  *
                  * @see https://tailwindcss.com/docs/min-width
                  */
-                'min-w' => [['min-w' => [$themeContainer, 'screen', 'none', ...self::scaleSizing($themeSpacing)] ]],
+                'min-w' => [['min-w' => [
+                    $themeContainer,
+                    'screen',
+                    /** Deprecated. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+                    'none',
+                    ...self::scaleSizing($themeSpacing)
+                ] ]],
                 /**
                  * Max-Width
                  *
@@ -776,7 +782,9 @@ class Config
                             $themeContainer,
                             'screen',
                             'none',
+                            /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
                             'prose',
+                            /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
                             ['screen' => [$themeBreakPoint]],
                             ...self::scaleSizing($themeSpacing),
                         ],
@@ -934,6 +942,7 @@ class Config
                     ['leading' => [
                         ArbitraryVariableValidator::validate(...),
                         ArbitraryValueValidator::validate(...),
+                        /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
                         $themeLeading,
                         $themeSpacing
                     ]],
@@ -2702,9 +2711,17 @@ class Config
     /**
      * @return array<int, string|callable>
      */
+    private static function scalePadding(ThemeGetter $themeSpacing): array
+    {
+        return ['px', ...self::scaleUnambiguousSpacing($themeSpacing)];
+    }
+
+    /**
+     * @return array<int, string|callable>
+     */
     private static function scaleMargin(ThemeGetter $themeSpacing): array
     {
-        return ['auto', ...self::scaleUnambiguousSpacing($themeSpacing)];
+        return ['px','auto', ...self::scaleUnambiguousSpacing($themeSpacing)];
     }
 
     /**
