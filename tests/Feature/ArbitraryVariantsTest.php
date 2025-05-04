@@ -6,6 +6,7 @@ it('basic arbitrary variants', function (string $input, string $output) {
     expect(TailwindMerge::instance()->merge($input))
         ->toBe($output);
 })->with([
+    ['[p]:underline [p]:line-through', '[p]:line-through'],
     ['[&>*]:underline [&>*]:line-through', '[&>*]:line-through'],
     ['[&>*]:underline [&>*]:line-through [&_div]:line-through', '[&>*]:line-through [&_div]:line-through'],
     ['supports-[display:grid]:flex supports-[display:grid]:grid', 'supports-[display:grid]:grid'],
