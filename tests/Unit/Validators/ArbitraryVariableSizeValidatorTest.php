@@ -1,6 +1,5 @@
 <?php
 
-use TailwindMerge\Validators\ArbitraryVariableShadowValidator;
 use TailwindMerge\Validators\ArbitraryVariableSizeValidator;
 
 test('is arbitrary variable size', function ($input, $output) {

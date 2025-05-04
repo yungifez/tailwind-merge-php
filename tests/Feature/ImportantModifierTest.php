@@ -17,5 +17,5 @@ it('merges tailwind classes with important modifier correctly', function (string
     ['!font-medium !font-bold font-thin', '!font-bold font-thin'],
     ['!right-2 !-inset-x-px', '!-inset-x-px'],
     ['focus:!inline focus:!block', 'focus:!block'],
-    ['![--my-var:20px] ![--my-var:30px]', '![--my-var:30px]']
+    ['![--my-var:20px] ![--my-var:30px]', '![--my-var:30px]'],
 ]);

@@ -23,7 +23,7 @@ class TailwindMerge implements TailwindMergeContract
      */
     public static function factory(): Factory
     {
-        return new Factory();
+        return new Factory;
     }
 
     /**
@@ -32,8 +32,7 @@ class TailwindMerge implements TailwindMergeContract
     public function __construct(
         private readonly array $configuration,
         private readonly ?CacheInterface $cache = null,
-    ) {
-    }
+    ) {}
 
     /**
      * @param  string|array<array-key, string|array<array-key, string>>  ...$args
@@ -78,7 +77,7 @@ class TailwindMerge implements TailwindMergeContract
     }
 
     /**
-     * @return array<array-key, string>
+     * @return array<int,mixed>
      */
     private function getConflictingClassGroupIds(string $classGroupId, bool $hasPostfixModifier): array
     {
@@ -88,6 +87,7 @@ class TailwindMerge implements TailwindMergeContract
             return [...$conflicts, ...Config::getMergedConfig()['conflictingClassGroupModifiers'][$classGroupId]];
         }
 
+        // @phpstan-ignore-next-line
         return $conflicts;
     }
 

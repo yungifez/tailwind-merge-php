@@ -1,6 +1,5 @@
 <?php
 
-use TailwindMerge\Validators\ArbitraryValueValidator;
 use TailwindMerge\Validators\ArbitraryVariableImageValidator;
 
 test('is arbitrary variable image', function ($input, $output) {

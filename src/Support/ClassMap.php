@@ -18,7 +18,7 @@ class ClassMap
         $theme = $config['theme'];
         $classGroups = $config['classGroups'];
 
-        $classMap = new ClassPartObject();
+        $classMap = new ClassPartObject;
 
         foreach ($classGroups as $classGroupId => $classGroup) {
             self::processClassesRecursively($classGroups[$classGroupId], $classMap, $classGroupId, $theme);
@@ -79,7 +79,7 @@ class ClassMap
 
         foreach (explode(self::CLASS_PART_SEPARATOR, $path) as $pathPart) {
             if (! isset($currentClassPartObject->nextPart[$pathPart])) {
-                $currentClassPartObject->nextPart[$pathPart] = new ClassPartObject();
+                $currentClassPartObject->nextPart[$pathPart] = new ClassPartObject;
             }
 
             $currentClassPartObject = $currentClassPartObject->nextPart[$pathPart];

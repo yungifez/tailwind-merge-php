@@ -8,6 +8,8 @@ namespace TailwindMerge\Validators\Concerns;
 trait ValidatesArbitraryValue
 {
     /**
+     * Determine if a value is arbitrary.
+     *
      * @param  string|array<array-key, string>  $labels
      */
     protected static function getIsArbitraryValue(string $value, string|array $labels, callable $isLengthOnly): bool
@@ -30,14 +32,14 @@ trait ValidatesArbitraryValue
     /**
      * @param  string|array<array-key, string>  $labels
      */
-    protected static function getIsArbitraryVariable(string $value, string|array $labels, $shouldMatchNoLabel = false): bool
+    protected static function getIsArbitraryVariable(string $value, string|array $labels, bool $shouldMatchNoLabel = false): bool
     {
         $labels = is_string($labels) ? [$labels] : $labels;
 
         preg_match('/^\((?:(\w[\w-]*):)?(.+)\)$/i', $value, $result);
 
         if ($result !== []) {
-            if ($result[1]) {
+            if ($result[1] !== '' && $result[1] !== '0') {
                 return in_array($result[1], $labels);
             }
 

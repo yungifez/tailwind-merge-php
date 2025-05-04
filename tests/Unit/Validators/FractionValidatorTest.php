@@ -1,7 +1,6 @@
 <?php
 
 use TailwindMerge\Validators\FractionValidator;
-use TailwindMerge\Validators\IntegerValidator;
 
 test('is fraction', function ($input, $output) {
     expect(FractionValidator::validate($input))->toBe($output);

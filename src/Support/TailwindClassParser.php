@@ -16,7 +16,7 @@ class TailwindClassParser
 
     private readonly ClassPartObject $classMap;
 
-    private $prefix = 'tw';
+    private ?string $prefix = 'tw';
 
     private const MODIFIER_SEPARATOR = ':';
 
@@ -79,7 +79,7 @@ class TailwindClassParser
             $fullPrefix = $this->prefix.self::MODIFIER_SEPARATOR;
             if (str_contains($class, $fullPrefix)) {
                 $class = str_replace($fullPrefix, '', $class);
-            }else{
+            } else {
                 return new ParsedClass(
                     modifiers: [],
                     hasImportantModifier: false,
@@ -234,7 +234,7 @@ class TailwindClassParser
         ];
     }
 
-    function stripImportantModifier(string $baseClassName): string
+    public function stripImportantModifier(string $baseClassName): string
     {
         $important = '!';
 
@@ -249,7 +249,6 @@ class TailwindClassParser
 
         return $baseClassName;
     }
-
 
     /**
      * @param  array<array-key, string>  $modifiers

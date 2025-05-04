@@ -3,7 +3,6 @@
 namespace TailwindMerge\Validators;
 
 use TailwindMerge\Support\Str;
-use TailwindMerge\Validators\Concerns\ValidatesArbitraryValue;
 
 /**
  * @internal

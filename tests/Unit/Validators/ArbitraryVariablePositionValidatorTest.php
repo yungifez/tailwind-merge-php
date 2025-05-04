@@ -1,7 +1,5 @@
 <?php
 
-use TailwindMerge\Validators\ArbitraryValueValidator;
-use TailwindMerge\Validators\ArbitraryVariableImageValidator;
 use TailwindMerge\Validators\ArbitraryVariablePositionValidator;
 
 test('is arbitrary variable position', function ($input, $output) {

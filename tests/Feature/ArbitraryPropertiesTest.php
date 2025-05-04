@@ -19,7 +19,7 @@ it('handles arbitrary property conflicts with modifiers correctly', function (st
     ['hover:[paint-order:markers] hover:[paint-order:normal]', 'hover:[paint-order:normal]'],
     ['hover:focus:[paint-order:markers] focus:hover:[paint-order:normal]', 'focus:hover:[paint-order:normal]'],
     ['[paint-order:markers] [paint-order:normal] [--my-var:2rem] lg:[--my-var:4px]', '[paint-order:normal] [--my-var:2rem] lg:[--my-var:4px]'],
-    ['bg-[#B91C1C] bg-radial-[at_50%_75%] bg-radial-[at_25%_25%]', 'bg-[#B91C1C] bg-radial-[at_25%_25%]']
+    ['bg-[#B91C1C] bg-radial-[at_50%_75%] bg-radial-[at_25%_25%]', 'bg-[#B91C1C] bg-radial-[at_25%_25%]'],
 ]);
 
 test('handles complex arbitrary property conflicts correctly', function () {

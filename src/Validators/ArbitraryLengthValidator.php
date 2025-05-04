@@ -13,6 +13,7 @@ class ArbitraryLengthValidator implements \TailwindMerge\Contracts\ValidatorCont
     use ValidatesArbitraryValue;
 
     final public const LENGTH_UNIT_REGEX = '/\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/';
+
     final public const COLOR_FUNCTION_REGEX = '/^(rgba?|hsla?|hwb|(ok)?(lab|lch))\(.+\)$/';
 
     public static function validate(string $value): bool
@@ -22,6 +23,6 @@ class ArbitraryLengthValidator implements \TailwindMerge\Contracts\ValidatorCont
 
     private static function isLengthOnly(string $value): bool
     {
-        return Str::hasMatch(self::LENGTH_UNIT_REGEX, $value) && !Str::hasMatch(self::COLOR_FUNCTION_REGEX, $value);
+        return Str::hasMatch(self::LENGTH_UNIT_REGEX, $value) && ! Str::hasMatch(self::COLOR_FUNCTION_REGEX, $value);
     }
 }
