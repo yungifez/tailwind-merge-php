@@ -16,48 +16,15 @@ class ClassMap
     public static function create(array $config): ClassPartObject
     {
         $theme = $config['theme'];
-        $prefix = $config['prefix'];
+        $classGroups = $config['classGroups'];
 
         $classMap = new ClassPartObject();
 
-        $prefixedClassGroupEntries = self::getPrefixedClassGroupEntries(
-            $config['classGroups'],
-            $prefix,
-        );
-
-        foreach ($prefixedClassGroupEntries as $classGroupId => $classGroup) {
-            self::processClassesRecursively($classGroup, $classMap, $classGroupId, $theme);
+        foreach ($classGroups as $classGroupId => $classGroup) {
+            self::processClassesRecursively($classGroups[$classGroupId], $classMap, $classGroupId, $theme);
         }
 
         return $classMap;
-    }
-
-    /**
-     * @param  array<string, mixed>  $classGroupEntries
-     * @return array<string, mixed>
-     */
-    private static function getPrefixedClassGroupEntries(array $classGroupEntries, ?string $prefix): array
-    {
-        if (! $prefix) {
-            return $classGroupEntries;
-        }
-
-        // @phpstan-ignore-next-line
-        return Collection::make($classGroupEntries)->mapWithKeys(function (array $classGroup, string $classGroupId) use ($prefix): array {
-            $prefixedClassGroup = Collection::make($classGroup)->map(function (string|array $classDefinition) use ($prefix): string|array {
-                if (is_string($classDefinition)) {
-                    return $prefix.$classDefinition;
-                }
-
-                if (is_array($classDefinition)) {
-                    return Collection::make($classDefinition)->mapWithKeys(fn (array $value, string $key): array => [$prefix.$key => $value])->all();
-                }
-
-                //                return $classDefinition;
-            })->all();
-
-            return [$classGroupId => $prefixedClassGroup];
-        })->all();
     }
 
     public static function processClassesRecursively(array $classGroup, ClassPartObject $classPartObject, string $classGroupId, array $theme): void

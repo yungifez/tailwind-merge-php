@@ -15,6 +15,7 @@ class ParsedClass
         public string $classGroupId,
         public string $baseClassName,
         public string $originalClassName,
+        public bool $isExternal = false
     ) {
         //
     }

@@ -5,6 +5,7 @@ namespace TailwindMerge\Support;
 use TailwindMerge\ValueObjects\ClassPartObject;
 use TailwindMerge\ValueObjects\ClassValidatorObject;
 use TailwindMerge\ValueObjects\ParsedClass;
+use function pcov\waiting;
 
 class TailwindClassParser
 {
@@ -16,12 +17,17 @@ class TailwindClassParser
 
     private readonly ClassPartObject $classMap;
 
+    private $prefix = 'tw';
+
+    private const MODIFIER_SEPARATOR = ':';
+
     /**
      * @param  array{cacheSize: int, prefix: ?string, theme: array<string, mixed>, classGroups: array<string, mixed>,conflictingClassGroups: array<string, array<int, string>>, conflictingClassGroupModifiers: array<string, array<int, string>>}  $config
      */
     public function __construct(array $configuration)
     {
         $this->classMap = ClassMap::create($configuration);
+        $this->prefix = $configuration['prefix'];
     }
 
     /**
@@ -54,12 +60,31 @@ class TailwindClassParser
 
     public function parse(string $class): ParsedClass
     {
+
+        $originalClass = $class;
+        if ($this->prefix) {
+            $fullPrefix = $this->prefix.self::MODIFIER_SEPARATOR;
+            if (str_contains($class, $fullPrefix)) {
+                $class = str_replace($fullPrefix, '', $class);
+            }else{
+                return new ParsedClass(
+                    modifiers: [],
+                    hasImportantModifier: false,
+                    hasPostfixModifier: false,
+                    modifierId: '',
+                    classGroupId: '',
+                    baseClassName: '',
+                    originalClassName: $originalClass,
+                    isExternal: true
+                );
+            }
+        }
         [
             'modifiers' => $modifiers,
             'hasImportantModifier' => $hasImportantModifier,
             'baseClassName' => $baseClassName,
             'maybePostfixModifierPosition' => $maybePostfixModifierPosition
-        ] = $this->splitModifiers($class);
+        ] = $parsedClass = $this->splitModifiers($class);
 
         $classGroupId = $this->getClassGroupId($maybePostfixModifierPosition ? Str::substr($baseClassName, 0, $maybePostfixModifierPosition) : $baseClassName);
 
@@ -97,7 +122,7 @@ class TailwindClassParser
             modifierId: $modifierId,
             classGroupId: $classGroupId,
             baseClassName: $baseClassName,
-            originalClassName: $class,
+            originalClassName: $originalClass,
         );
     }
 

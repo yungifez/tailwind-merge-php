@@ -53,6 +53,10 @@ class TailwindMerge implements TailwindMergeContract
                 ->map(fn (string $class): ParsedClass => $parser->parse($class)) // @phpstan-ignore-line
                 ->reverse()
                 ->map(function (ParsedClass $class) use (&$conflictingClassGroups): ?string {
+                    if ($class->isExternal) {
+                        return $class->originalClassName;
+                    }
+
                     $classId = $class->modifierId.$class->classGroupId;
 
                     if (array_key_exists($classId, $conflictingClassGroups)) {
